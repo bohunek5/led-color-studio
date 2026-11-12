@@ -18,6 +18,8 @@
 #selection-mode{width:100%;border:1px solid var(--line);border-radius:6px;background:#fff;padding:10px 7px;font-size:11px;font-family:inherit;color:var(--ink);margin-top:6px}.detect-button{margin:17px 0 11px}.manual-correction{border-top:1px solid var(--line);padding-top:15px;font-size:10px;color:var(--muted)}.manual-correction summary{cursor:pointer;line-height:1.6}.manual-correction .hint{margin-top:13px}.kelvin-card{background:#fff3e9;border:1px solid #efd0b6;border-radius:9px;padding:15px;margin-bottom:23px}.kelvin-card>label{display:block;font-size:11px;font-weight:600;color:#7b563f}.kelvin-entry{display:flex;align-items:center;gap:7px;margin:8px 0 18px}.kelvin-entry input{width:100%;min-width:0;background:white;border:1px solid #e8c9b1;border-radius:6px;padding:9px;font-size:28px;color:#7d432a;font-weight:600}.kelvin-entry>span{color:#9a785f;font-size:19px}.kelvin-card input[type=range]{background:linear-gradient(90deg,#ff991d,#ffddb5,#fff,#bdd8ff);border-radius:4px;appearance:none;height:7px}.kelvin-card input[type=range]::-webkit-slider-thumb{appearance:none;width:16px;height:16px;background:#e96432;border:2px solid #fff;border-radius:50%;box-shadow:0 0 0 1px #daaa86}.kelvin-scale{display:flex;justify-content:space-between;font-size:9px;color:#a3856f;margin-top:7px}.kelvin-card p{font-size:10px;line-height:1.6;color:#96715b;margin:13px 0 0}#detection-status{font-size:10px}.kelvin-entry input:invalid{border-color:#c24b35}.manual-correction[open] .tools{margin-top:12px}
 @media(max-width:620px){.kelvin-card{padding:17px}.kelvin-entry input{font-size:30px}.kelvin-card p{font-size:11px}#selection-mode{font-size:10px}.detect-button{font-size:10px}.left-panel .selection-section .step{display:none}}
 
+.source-light{margin-bottom:16px}.source-light label{display:block;font-size:11px;color:#5b6056;margin-bottom:8px}.source-light input{width:100%;border:1px solid #dfe3d9;border-radius:6px;padding:10px;font-size:17px;color:#555d4f}.source-light p{font-size:10px;line-height:1.6;color:#888f80;margin:8px 0}#pick-light[aria-pressed=true]{border-color:#e96432;background:#fff1e8}
+
 </style>
 
 </head>
@@ -30,7 +32,7 @@
   <main>
     <section class="intro">
       <div><div class="eyebrow">PRACOWNIA KOLORU / 01</div><h1>Jedno zdjęcie.<br><span>Każda barwa światła.</span></h1></div>
-      <p>Wgraj zdjęcie i wpisz temperaturę w kelwinach.<br>Zmieniaj światło taśmy i jej poświatę w wybranym obszarze.</p>
+      <p>Wgraj zdjęcie i wpisz temperaturę w kelwinach.<br>Przeliczaj światło, poświatę i odbicia z zachowaniem faktur.</p>
     </section>
     <div class="workspace">
       <aside class="panel left-panel" aria-label="Zdjęcie i zaznaczenie">
@@ -43,10 +45,10 @@
         </section>
         <section class="selection-section">
           <h2><span class="step">AUTO</span> Wykrywanie światła</h2>
-          <p class="hint">Wykrywamy świecącą taśmę i pobliską poświatę. Poza zaznaczeniem zdjęcie pozostaje identyczne.</p>
+          <p class="hint">Taśma, poświata i oświetlone otoczenie. Dopasuj zasięg do zdjęcia; poza zaznaczeniem piksele pozostają identyczne.</p>
           <label class="section-label" for="selection-mode">OBSZAR ZMIANY</label>
           <select id="selection-mode"><option value="auto">Światło — automatycznie</option><option value="point">Wskazana taśma</option><option value="manual">Moje zaznaczenie</option></select>
-          <div class="range-label"><label for="sensitivity">Zasięg poświaty</label><output id="sensitivity-value">45%</output></div>
+          <div class="range-label"><label for="sensitivity">Zasięg światła i odbić</label><output id="sensitivity-value">45%</output></div>
           <input id="sensitivity" type="range" min="0" max="100" value="45">
           <button id="pick-light" class="secondary full detect-button" aria-pressed="false">⊙ Wskaż taśmę na zdjęciu</button>
           <button id="auto-mask" class="secondary full detect-button">Wykryj światło ponownie</button>
@@ -76,6 +78,7 @@
       <aside class="panel right-panel" aria-label="Barwy i eksport">
         <section>
           <h2><span class="step">02</span> Ustaw temperaturę</h2>
+          <div class="source-light"><label for="source-kelvin">Światło na oryginalnym zdjęciu (K)</label><input id="source-kelvin" type="number" min="1000" max="12000" step="1" value="3000" placeholder="Auto" aria-describedby="source-hint"><p id="source-hint">Punkt odniesienia dla naturalnej zmiany. Puste pole = oszacowanie ze zdjęcia.</p></div>
           <div class="kelvin-card"><label for="kelvin">Temperatura światła (K)</label><div class="kelvin-entry"><input id="kelvin" type="number" min="1000" max="12000" step="1" value="3000" inputmode="numeric" aria-describedby="kelvin-hint"><span>K</span></div><input id="kelvin-slider" type="range" min="1000" max="12000" step="50" value="3000" aria-label="Suwak temperatury światła"><div class="kelvin-scale"><span>Ciepłe</span><span>Zimne</span></div><p id="kelvin-hint">Wpisz np. 2700, 4000 lub 6500. Efekt zmienia się na żywo.</p></div>
           <div class="section-label">STAŁA PALETA BIELI</div><div id="white-presets" class="white-presets"></div>
           <div class="section-label rgb-label">KOLORY RGB</div><div id="rgb-presets" class="rgb-presets"></div>
@@ -89,10 +92,10 @@
         <section class="export-section"><h2><span class="step">03</span> Zapisz efekt</h2><button id="download" class="primary full">Pobierz zdjęcie PNG <span>↓</span></button><button id="download-all" class="secondary full">Wszystkie stałe barwy · ZIP</button><div class="project-actions"><button id="save-project" class="text-button small">Zapisz projekt</button><button id="open-project" class="text-button small">Otwórz projekt</button></div><input id="project-file" type="file" accept="application/json,.json" hidden><p class="hint">Projekt zachowuje zdjęcie, zaznaczenie i ustawienia. Paleta przenosi kolory między urządzeniami.</p></section>
       </aside>
     </div>
-    <footer><span>LED STUDIO 3 <span class="footer-dot">/</span> PRACOWNIA TWOJEGO ŚWIATŁA</span><span>Barwy na zdjęciu są wizualizacją, nie pomiarem temperatury światła.</span></footer>
+    <footer><span>LED STUDIO 4 <span class="footer-dot">/</span> PRACOWNIA TWOJEGO ŚWIATŁA</span><span>Barwy na zdjęciu są wizualizacją, nie pomiarem temperatury światła.</span></footer>
   </main>
   <div id="toast" class="toast" role="status" hidden></div>
-  <dialog id="help-dialog"><button id="close-help" class="close" aria-label="Zamknij instrukcję">×</button><div class="eyebrow">OD ZDJĘCIA DO NOWEJ BARWY</div><h2>Twój stały zestaw światła.</h2><ol><li><strong>Wgraj zdjęcie.</strong> Najlepiej użyć zdjęcia z widoczną poświatą i bez mocno przepalonego światła.</li><li><strong>Wpisz docelową temperaturę w K.</strong> Na przykład 2700 K daje ciepłą barwę, a 6500 K chłodniejszą. Podgląd aktualizuje się automatycznie.</li><li><strong>Dopasuj obszar w razie potrzeby.</strong> Automat szuka świecącej taśmy. Jeśli zaznaczenie nie pasuje, wybierz „Wskaż taśmę na zdjęciu” i kliknij świecący fragment. Sprawdź „Pokaż zaznaczenie” i w razie potrzeby popraw gumką. Tylko zaznaczony obszar zmienia barwę; reszta pikseli pozostaje bez zmian. Możesz też wybrać RGB i zapisać własne ustawienie przyciskiem +.</li><li><strong>Pobierz PNG lub zestaw ZIP.</strong> Zapisz projekt, aby odtworzyć zdjęcie z identycznym zaznaczeniem. Paletę możesz przenieść na inny komputer.</li></ol><p>Ostatni projekt i własne próbki zapisują się w tej przeglądarce, jeśli pozwala na to jej pamięć. Wyczyszczenie danych przeglądarki usuwa ten zapis — pobierz projekt jako kopię.</p><p>Te same ustawienia i ten sam projekt dają ten sam efekt. Różne zdjęcia, ekspozycje i ekrany mogą wyglądać inaczej. Oznaczenia K są orientacyjnymi próbkami wizualnymi. Duże zdjęcia zmniejszamy do 3200 px na dłuższym boku.</p></dialog>
+  <dialog id="help-dialog"><button id="close-help" class="close" aria-label="Zamknij instrukcję">×</button><div class="eyebrow">OD ZDJĘCIA DO NOWEJ BARWY</div><h2>Twój stały zestaw światła.</h2><ol><li><strong>Wgraj zdjęcie.</strong> Najlepiej użyć zdjęcia z widoczną poświatą i bez mocno przepalonego światła.</li><li><strong>Podaj temperaturę na oryginalnym zdjęciu i temperaturę docelową.</strong> Przy 3000 → 3000 K i jasności 100% zdjęcie pozostaje bez zmian.  Na przykład 2700 K daje ciepłą barwę, a 6500 K chłodniejszą. Podgląd aktualizuje się automatycznie.</li><li><strong>Dopasuj obszar w razie potrzeby.</strong> Automat szuka świecącej taśmy. Jeśli zaznaczenie nie pasuje, wybierz „Wskaż taśmę na zdjęciu” i kliknij świecący fragment. Sprawdź „Pokaż zaznaczenie” i w razie potrzeby popraw gumką. Tylko zaznaczony obszar zmienia barwę; reszta pikseli pozostaje bez zmian. Możesz też wybrać RGB i zapisać własne ustawienie przyciskiem +.</li><li><strong>Pobierz PNG lub zestaw ZIP.</strong> Zapisz projekt, aby odtworzyć zdjęcie z identycznym zaznaczeniem. Paletę możesz przenieść na inny komputer.</li></ol><p>Ostatni projekt i własne próbki zapisują się w tej przeglądarce, jeśli pozwala na to jej pamięć. Wyczyszczenie danych przeglądarki usuwa ten zapis — pobierz projekt jako kopię.</p><p>Te same ustawienia i ten sam projekt dają ten sam efekt. Różne zdjęcia, ekspozycje i ekrany mogą wyglądać inaczej. Oznaczenia K są orientacyjnymi próbkami wizualnymi. Duże zdjęcia zmniejszamy do 3200 px na dłuższym boku.</p></dialog>
 <script>
 /* Deterministic color engine. No network, randomness, or dependencies. */
 (function (root) {
@@ -126,7 +129,7 @@
     if(!value || !/^#[0-9a-f]{6}$/i.test(value.hex)) throw new Error('Nieprawidłowy kolor HEX.');
     if(!Number.isFinite(Number(value.strength)) || !Number.isFinite(Number(value.brightness))) throw new Error('Nieprawidłowe ustawienia światła.');
     const kelvin=value.kelvin==null?null:Number(value.kelvin);
-    return {hex:kelvin==null?value.hex.toUpperCase():kelvinToHex(kelvin),kelvin,strength:clamp(Number(value.strength),0,100),brightness:clamp(Number(value.brightness),20,150)};
+    return {hex:kelvin==null?value.hex.toUpperCase():kelvinToHex(kelvin),kelvin,strength:clamp(Number(value.strength),0,100),brightness:clamp(Number(value.brightness),20,150),sourceKelvin:value.sourceKelvin==null?null:clamp(Number(value.sourceKelvin)||3000,1000,12000)};
   }
   // Grow a finite local halo from bright emitter cores, never from every bright pixel.
   // A point supplied by the user selects its connected emitter cluster only.
@@ -173,8 +176,8 @@
     // Include adjacent white LED chips belonging to the same lit strip.
     if(!point){for(const c of components){if(selected.has(c.id)||c.size>n*.003)continue;for(const primary of components){if(!selected.has(primary.id))continue;const dx=Math.max(primary.minX-c.maxX,c.minX-primary.maxX,0),dy=Math.max(primary.minY-c.maxY,c.minY-primary.maxY,0);if(Math.hypot(dx,dy)<Math.min(width,height)*.04){selected.add(c.id);break;}}}}
     const amount=clamp(Number.isFinite(Number(sensitivity))?Number(sensitivity):45,0,100)/100;
-    const radius=Math.max(2,Math.round(Math.min(width,height)*(.008+.07*amount)));
-    const glowFloor=top*(.48-.16*amount),distance=new Int16Array(n);distance.fill(-1);
+    const radius=Math.max(2,Math.round(Math.min(width,height)*(.018+.32*amount)));
+    const glowFloor=top*.08,distance=new Int16Array(n);distance.fill(-1);
     let head=0,tail=0,coreCount=0;
     for(let p=0;p<n;p++){if(selected.has(labels[p])){distance[p]=0;queue[tail++]=p;coreCount++;}}
     // Follow continuous bright emitted light before adding its bounded, fading halo.
@@ -185,25 +188,55 @@
     // Every halo pixel must connect to a selected core through sufficiently lit pixels.
     while(head<tail){const p=queue[head++],d=distance[p];if(d>=radius)continue;const x=p%width,y=Math.floor(p/width);for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){if(!dx&&!dy)continue;const xx=x+dx,yy=y+dy;if(xx<0||xx>=width||yy<0||yy>=height)continue;const q=yy*width+xx;if(distance[q]>=0||!source[q*4+3]||lum[q]<=glowFloor||(whiteBackdrop&&sat[q]<.2))continue;distance[q]=d+1;queue[tail++]=q;}}
     let coverage=0;
-    for(let p=0;p<n;p++){if(distance[p]<0)continue;const light=clamp((lum[p]-glowFloor)/Math.max(12,top*.12),0,1);const spatial=clamp((radius+1-distance[p])/Math.max(1,radius*.3),0,1);const alpha=distance[p]===0?255:Math.round(255*light*spatial);if(alpha<4)continue;const i=p*4;out[i]=out[i+1]=out[i+2]=255;out[i+3]=alpha;coverage++;}
+    for(let p=0;p<n;p++){if(distance[p]<0)continue;const light=Math.pow(clamp((lum[p]-glowFloor)/(top*.6),0,1),.65);const spatial=Math.pow(clamp(1-distance[p]/(radius+1),0,1),1.8);const alpha=distance[p]===0?255:Math.round(255*light*spatial);if(alpha<4)continue;const i=p*4;out[i]=distance[p]===0?255:0;out[i+1]=out[i+2]=255;out[i+3]=alpha;coverage++;}
     return {data:out,coverage:coverage/visible,needsPoint:false,coreCount,radius};
   }
+  const toLinear=v=>v<=.04045?v/12.92:Math.pow((v+.055)/1.055,2.4);
+  const toSrgb=v=>v<=.0031308?v*12.92:1.055*Math.pow(v,1/2.4)-.055;
+  const linearLUT=Float64Array.from({length:256},(_,i)=>toLinear(i/255));
+  function estimateIlluminant(source,mask){
+    const sum=[0,0,0];let weight=0,step=Math.max(1,Math.floor(source.length/4/12000))*4;
+    for(let i=0;i<source.length;i+=step){const max=Math.max(source[i],source[i+1],source[i+2]),min=Math.min(source[i],source[i+1],source[i+2]),sat=(max-min)/Math.max(1,max);if(mask[i+3]>100&&max>100&&sat>.12&&sat<.95){const w=mask[i+3]/255*sat;for(let c=0;c<3;c++)sum[c]+=source[i+c]/max*w;weight+=w;}}
+    return weight?sum.map(v=>clamp(v/weight,.08,1)):[1,1,1];
+  }
   function recolor(source, mask, settings, destination) {
-    const s=normalizeSettings(settings), out=destination || new Uint8ClampedArray(source.length);
-    if(source.length!==mask.length || out.length!==source.length) throw new Error('Niezgodne wymiary zdjęcia i zaznaczenia.');
-    const rgb=[1,3,5].map(i=>parseInt(s.hex.slice(i,i+2),16)/255), strength=s.strength/100, brightness=s.brightness/100;
+    const s=normalizeSettings(settings),out=destination||new Uint8ClampedArray(source.length);
+    if(source.length!==mask.length||out.length!==source.length)throw new Error('Niezgodne wymiary zdjęcia i zaznaczenia.');
+    let target=[1,3,5].map(i=>parseInt(s.hex.slice(i,i+2),16)/255);
+    const illuminant=estimateIlluminant(source,mask);
+    // Calibrate the original photograph at its stated CCT. Move its measured
+    // light toward neutral daylight continuously, retaining the original at
+    // the reference CCT despite a camera's baked-in white balance.
+    if(s.kelvin!=null&&s.sourceKelvin!=null){
+      const reference=[1,3,5].map(i=>parseInt(kelvinToHex(s.sourceKelvin).slice(i,i+2),16)/255);
+      const neutral=[1,3,5].map(i=>parseInt(kelvinToHex(6500).slice(i,i+2),16)/255);
+      const lo=Math.min(s.sourceKelvin,6500),hi=Math.max(s.sourceKelvin,6500);
+      if(s.sourceKelvin!==6500&&s.kelvin>=lo&&s.kelvin<=hi){const t=(Math.log(s.kelvin)-Math.log(s.sourceKelvin))/(Math.log(6500)-Math.log(s.sourceKelvin));target=illuminant.map((v,c)=>Math.exp(Math.log(v)*(1-t)+Math.log(neutral[c])*t));}
+      else if((s.sourceKelvin<6500&&s.kelvin<s.sourceKelvin)||(s.sourceKelvin>6500&&s.kelvin>s.sourceKelvin)||s.sourceKelvin===6500){target=target.map((v,c)=>clamp(illuminant[c]*v/Math.max(.05,reference[c]),0,1));}
+    }
+    const gains=target.map((v,c)=>clamp(toLinear(v)/Math.max(.006,toLinear(illuminant[c])),.05,3));
+    const strength=s.strength/100,brightness=s.brightness/100;
+    const targetLinear=target.map(toLinear),targetLum=.2126*targetLinear[0]+.7152*targetLinear[1]+.0722*targetLinear[2];
+    const emissionShift=s.kelvin!=null&&s.sourceKelvin!=null?clamp(Math.abs(Math.log(s.kelvin/s.sourceKelvin))/.5,0,1):1;
+    const identity=s.kelvin!=null&&s.kelvin===s.sourceKelvin&&brightness===1;
     for(let i=0;i<source.length;i+=4){
       const amount=mask[i+3]/255*strength;
-      if(amount===0){out[i]=source[i];out[i+1]=source[i+1];out[i+2]=source[i+2];out[i+3]=source[i+3];continue;}
-      const r=source[i]/255,g=source[i+1]/255,b=source[i+2]/255;
-      const luminance=.2126*r+.7152*g+.0722*b;
-      const level=clamp((Math.max(r,g,b)*.7+luminance*.3)*brightness,0,1);
-      // Retain a small neutral highlight in the brightest LED cores.
-      const core=clamp((level-.88)/.12,0,1)*.24;
-      for(let c=0;c<3;c++){
-        const target=(rgb[c]*(1-core)+core)*level*255;
-        out[i+c]=Math.round(source[i+c]*(1-amount)+target*amount);
-      }
+      if(amount===0||identity){out[i]=source[i];out[i+1]=source[i+1];out[i+2]=source[i+2];out[i+3]=source[i+3];continue;}
+      // Chromatic adaptation of the existing light in linear RGB preserves surface
+      // ratios, texture and shadow detail. It does not paint a flat target hue.
+      const r=linearLUT[source[i]],g=linearLUT[source[i+1]],b=linearLUT[source[i+2]],lum=.2126*r+.7152*g+.0722*b;
+      let rr=r*gains[0],gg=g*gains[1],bb=b*gains[2];
+      const newLum=.2126*rr+.7152*gg+.0722*bb;
+      const exposure=newLum>0?lum/newLum:0;
+      rr*=exposure*brightness;gg*=exposure*brightness;bb*=exposure*brightness;
+      // Keep clipped emitter cores luminous instead of making opaque colored dots.
+      const highlight=Math.pow(Math.min(r,g,b),2)*.92;
+      const values=[rr,gg,bb],base=[r,g,b];
+      // Emitting tape has its own light color; reflected surroundings retain
+      // their surface color through adaptation. Store that distinction in red.
+      const emission=mask[i]/255*emissionShift;
+      for(let c=0;c<3;c++)values[c]=values[c]*(1-emission)+targetLinear[c]/Math.max(.001,targetLum)*lum*brightness*emission;
+      for(let c=0;c<3;c++){const adapted=values[c]*(1-highlight)+lum*brightness*highlight;const mixed=base[c]+(adapted-base[c])*amount;out[i+c]=Math.round(clamp(toSrgb(Math.max(0,mixed)),0,1)*255);}
       out[i+3]=source[i+3];
     }
     return out;
@@ -228,7 +261,7 @@
     const end=new Uint8Array(22),ev=new DataView(end.buffer);ev.setUint32(0,0x06054b50,true);ev.setUint16(8,files.length,true);ev.setUint16(10,files.length,true);ev.setUint32(12,centralSize,true);ev.setUint32(16,offset,true);
     const result=new Uint8Array(offset+centralSize+22);let pos=0;for(const a of [...chunks,...central,end]){result.set(a,pos);pos+=a.length;}return result;
   }
-  const API={PRESETS,kelvinToHex,detectLightMask,normalizeSettings,normalizePalette,recolor,zip,crc32,clamp};
+  const API={PRESETS,kelvinToHex,detectLightMask,normalizeSettings,normalizePalette,estimateIlluminant,recolor,zip,crc32,clamp};
   if(typeof module==='object'&&module.exports)module.exports=API;else root.LEDCore=API;
 })(typeof window!=='undefined'?window:globalThis);
 
@@ -241,7 +274,7 @@
   let original=null, maskData=null, settings=C.normalizeSettings({...C.PRESETS.find(p=>p.id==='warm3000')});
   let custom=[], selected='warm3000', fileName='scena-przykladowa', isDemo=true, mode='result', tool='none', history=[];
   let drawing=false,lastPoint=null,renderQueued=false,saveTimer=null,toastTimer=null,db=null,revision=0,busy=false;
-  let selectionMode='auto',detectionSensitivity=45,selectedPoint=null;
+  let selectionMode='auto',detectionSensitivity=45,selectedPoint=null,sourceKelvin=3000;
   const MAX_SIDE=3200, MAX_BYTES=30*1024*1024;
   function toast(message){$('toast').textContent=message;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,4300);}
   function status(message,ok=true){$('save-status').textContent=message;$('save-dot').style.background=ok?'#74907b':'#d99543';}
@@ -259,13 +292,14 @@
   function queueRender(){if(renderQueued)return;renderQueued=true;requestAnimationFrame(()=>{renderQueued=false;render();});}
   function render(){
     if(!original)return;
-    const data=C.recolor(original.data,maskData.data,settings);rx.putImageData(new ImageData(data,source.width,source.height),0,0);
+    const data=C.recolor(original.data,maskData.data,{...settings,sourceKelvin});rx.putImageData(new ImageData(data,source.width,source.height),0,0);
     ctx.clearRect(0,0,photo.width,photo.height);ctx.drawImage(mode==='before'?source:result,0,0);
     if(mode==='compare'){const ratio=Number($('compare-slider').value)/100;ctx.save();ctx.beginPath();ctx.rect(0,0,photo.width*ratio,photo.height);ctx.clip();ctx.clearRect(0,0,photo.width,photo.height);ctx.drawImage(source,0,0);ctx.restore();$('compare-line').style.left=(ratio*100)+'%';}
     ox.clearRect(0,0,overlay.width,overlay.height);
     if($('show-mask').checked&&mode==='result'){ox.drawImage(mask,0,0);ox.globalCompositeOperation='source-in';ox.fillStyle='rgba(45,220,173,.46)';ox.fillRect(0,0,overlay.width,overlay.height);ox.globalCompositeOperation='source-over';}
   }
   function updateControls(){
+    $('source-kelvin').value=sourceKelvin==null?'':sourceKelvin;
     $('kelvin').value=settings.kelvin==null?'':settings.kelvin;
     $('kelvin').placeholder=settings.kelvin==null?'RGB':'';
     if(settings.kelvin!=null)$('kelvin-slider').value=settings.kelvin;
@@ -292,7 +326,7 @@
   function selectionUI(message){
     $('selection-mode').value=selectionMode;$('sensitivity').value=detectionSensitivity;$('sensitivity-value').textContent=detectionSensitivity+'%';
     $('sensitivity').disabled=selectionMode==='manual';
-    $('detection-status').textContent=message||({auto:'Wybrano światło i pobliską poświatę. Sprawdź zaznaczenie.',point:'Wybrano światło przy wskazanej taśmie.',manual:'Własne zaznaczenie jest zachowane przy każdej zmianie barwy.'}[selectionMode]);
+    $('detection-status').textContent=message||({auto:'Wybrano światło i zasięg odbić. Sprawdź zaznaczenie na zdjęciu.',point:'Wybrano światło przy wskazanej taśmie.',manual:'Własne zaznaczenie jest zachowane przy każdej zmianie barwy.'}[selectionMode]);
   }
   function autoDetect(usePoint=null){
     if(!original)return;
@@ -308,7 +342,7 @@
   }
   // Color changes never regenerate a mask: erased areas must stay protected.
   function ensureLightSelection(){if(original&&!hasMask())selectionUI('Brak zaznaczenia. Wskaż świecącą taśmę na zdjęciu, aby zmienić jej barwę.');}
-  function updateLabels(){ $('filename').textContent=isDemo?'Scena przykładowa':fileName;$('scene-label').textContent=isDemo?'SCENA PRZYKŁADOWA':'TWOJE ZDJĘCIE';$('editor-hint').textContent='Zmieniasz tylko zaznaczone światło. Tło poza zaznaczeniem pozostaje bez zmian.'; }
+  function updateLabels(){ $('filename').textContent=isDemo?'Scena przykładowa':fileName;$('scene-label').textContent=isDemo?'SCENA PRZYKŁADOWA':'TWOJE ZDJĘCIE';$('editor-hint').textContent='Naturalne przeliczenie światła i odbić. Poza zaznaczeniem zdjęcie pozostaje bez zmian.'; }
   function drawDemo(){
     setDimensions(1200,800);const w=1200,h=800;
     // An original illustrated interior, used only as an interactive sample.
@@ -359,6 +393,7 @@
     const kelvin=Number(value);if(!Number.isFinite(kelvin)||kelvin<1000||kelvin>12000)return false;
     settings={...settings,kelvin,hex:C.kelvinToHex(kelvin)};selected=C.PRESETS.find(p=>p.kelvin===kelvin)?.id||'';revision++;ensureLightSelection();updateControls();setMode('result');scheduleSave();return true;
   }
+  $('source-kelvin').onchange=()=>{const value=$('source-kelvin').value.trim();if(value===''||(Number(value)>=1000&&Number(value)<=12000)){sourceKelvin=value===''?null:Number(value);revision++;setMode('result');scheduleSave();}else{updateControls();toast('Temperatura na zdjęciu: 1000–12000 K lub puste pole dla oszacowania.');}};
   $('kelvin').oninput=()=>changeKelvin($('kelvin').value);
   $('kelvin').onchange=()=>{if(!changeKelvin($('kelvin').value)){updateControls();toast('Wpisz temperaturę od 1000 do 12000 K.');}};
   $('kelvin-slider').oninput=()=>changeKelvin($('kelvin-slider').value);
@@ -378,10 +413,10 @@
   $('download').onclick=async()=>{if(!hasMask())return toast('Najpierw wskaż świecącą taśmę na zdjęciu.');try{render();download(await blobOf(result),safeName(fileName)+'-'+(settings.kelvin!=null?settings.kelvin+'K':settings.hex.slice(1))+'.png');toast('Zdjęcie PNG jest gotowe.');}catch(e){toast(e.message);}};
   $('download-all').onclick=async()=>{
     if(busy)return;if(!hasMask())return toast('Najpierw wskaż świecącą taśmę na zdjęciu.');
-    busy=true;const button=$('download-all');button.disabled=true;const snapshotSource=new Uint8ClampedArray(original.data),snapshotMask=new Uint8ClampedArray(maskData.data),name=safeName(fileName),w=source.width,h=source.height;
-    try{const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;const c=canvas.getContext('2d'),files=[];for(let i=0;i<C.PRESETS.length;i++){const p=C.PRESETS[i];button.textContent=`Przygotowuję ${i+1} / ${C.PRESETS.length}…`;await new Promise(r=>setTimeout(r,20));c.putImageData(new ImageData(C.recolor(snapshotSource,snapshotMask,p),w,h),0,0);const blob=await blobOf(canvas);files.push({name:name+'-'+p.id+'.png',data:new Uint8Array(await blob.arrayBuffer())});}files.push({name:'ustawienia.json',data:new TextEncoder().encode(JSON.stringify({app:'led-studio',version:1,presets:C.PRESETS},null,2))});download(new Blob([C.zip(files)],{type:'application/zip'}),name+'-10-barw.zip');toast('Gotowe: 10 stałych barw i plik z ustawieniami.');}catch(e){toast(e.message||'Nie udało się utworzyć ZIP.');}finally{busy=false;button.disabled=false;button.textContent='Wszystkie stałe barwy · ZIP';}
+    busy=true;const button=$('download-all');button.disabled=true;const snapshotSource=new Uint8ClampedArray(original.data),snapshotMask=new Uint8ClampedArray(maskData.data),name=safeName(fileName),w=source.width,h=source.height,snapshotSourceKelvin=sourceKelvin;
+    try{const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;const c=canvas.getContext('2d'),files=[];for(let i=0;i<C.PRESETS.length;i++){const p=C.PRESETS[i];button.textContent=`Przygotowuję ${i+1} / ${C.PRESETS.length}…`;await new Promise(r=>setTimeout(r,20));c.putImageData(new ImageData(C.recolor(snapshotSource,snapshotMask,{...p,sourceKelvin:snapshotSourceKelvin}),w,h),0,0);const blob=await blobOf(canvas);files.push({name:name+'-'+p.id+'.png',data:new Uint8Array(await blob.arrayBuffer())});}files.push({name:'ustawienia.json',data:new TextEncoder().encode(JSON.stringify({app:'led-studio',version:1,presets:C.PRESETS},null,2))});download(new Blob([C.zip(files)],{type:'application/zip'}),name+'-10-barw.zip');toast('Gotowe: 10 stałych barw i plik z ustawieniami.');}catch(e){toast(e.message||'Nie udało się utworzyć ZIP.');}finally{busy=false;button.disabled=false;button.textContent='Wszystkie stałe barwy · ZIP';}
   };
-  function project(){return{app:'led-studio',version:1,type:'project',engineRevision:3,selectionMode,selectedPoint,detectionSensitivity,fileName,isDemo,width:source.width,height:source.height,source:source.toDataURL('image/png'),mask:mask.toDataURL('image/png'),settings:{...settings},selected,presets:custom.map(p=>({...p}))};}
+  function project(){return{app:'led-studio',version:1,type:'project',engineRevision:4,sourceKelvin,selectionMode,selectedPoint,detectionSensitivity,fileName,isDemo,width:source.width,height:source.height,source:source.toDataURL('image/png'),mask:mask.toDataURL('image/png'),settings:{...settings},selected,presets:custom.map(p=>({...p}))};}
   $('save-project').onclick=()=>{jsonDownload(project(),safeName(fileName)+'.led-project.json');toast('Zapisano projekt ze zdjęciem i zaznaczeniem.');};
   $('open-project').onclick=()=>$('project-file').click();
   async function restoreProject(value){
@@ -391,7 +426,7 @@
     const nextSettings=C.normalizeSettings(value.settings),nextPresets=C.normalizePalette(value.presets||[]);
     const [image,maskImage]=await Promise.all([loadImage(value.source),loadImage(value.mask)]);
     if(image.width!==value.width||image.height!==value.height||maskImage.width!==value.width||maskImage.height!==value.height)throw new Error('Wymiary zdjęcia i zaznaczenia nie pasują do projektu.');
-    setDimensions(value.width,value.height);sx.drawImage(image,0,0);mx.drawImage(maskImage,0,0);readPixels();selectionMode=['auto','point','manual'].includes(value.selectionMode)?value.selectionMode:'auto';selectedPoint=value.selectedPoint&&Number.isFinite(value.selectedPoint.x)&&Number.isFinite(value.selectedPoint.y)?{x:C.clamp(value.selectedPoint.x,0,1),y:C.clamp(value.selectedPoint.y,0,1)}:null;detectionSensitivity=value.engineRevision>=3&&Number.isFinite(Number(value.detectionSensitivity))?C.clamp(Number(value.detectionSensitivity),0,100):45;if(value.engineRevision!==3&&selectionMode!=='manual')autoDetect();else selectionUI();setTool('none');settings=nextSettings;custom=nextPresets;selected=C.PRESETS.find(p=>p.id===value.selected)?.id||custom.find(p=>p.hex===settings.hex&&p.strength===settings.strength&&p.brightness===settings.brightness)?.id||'';fileName=String(value.fileName||'zdjecie-led').slice(0,200);isDemo=Boolean(value.isDemo);revision++;updateLabels();buildCustom();updateControls();persistPalette();setMode('result');
+    setDimensions(value.width,value.height);sx.drawImage(image,0,0);mx.drawImage(maskImage,0,0);readPixels();selectionMode=['auto','point','manual'].includes(value.selectionMode)?value.selectionMode:'auto';selectedPoint=value.selectedPoint&&Number.isFinite(value.selectedPoint.x)&&Number.isFinite(value.selectedPoint.y)?{x:C.clamp(value.selectedPoint.x,0,1),y:C.clamp(value.selectedPoint.y,0,1)}:null;detectionSensitivity=value.engineRevision>=4&&Number.isFinite(Number(value.detectionSensitivity))?C.clamp(Number(value.detectionSensitivity),0,100):45;if(value.engineRevision!==4&&selectionMode!=='manual')autoDetect();else selectionUI();setTool('none');sourceKelvin=value.engineRevision>=4?(value.sourceKelvin==null?null:C.clamp(Number(value.sourceKelvin)||3000,1000,12000)):3000;settings=nextSettings;custom=nextPresets;selected=C.PRESETS.find(p=>p.id===value.selected)?.id||custom.find(p=>p.hex===settings.hex&&p.strength===settings.strength&&p.brightness===settings.brightness)?.id||'';fileName=String(value.fileName||'zdjecie-led').slice(0,200);isDemo=Boolean(value.isDemo);revision++;updateLabels();buildCustom();updateControls();persistPalette();setMode('result');
   }
   $('project-file').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>120*1024*1024)throw new Error('Plik projektu jest za duży.');const value=JSON.parse(await file.text());await restoreProject(value);scheduleSave();toast('Projekt odtworzony wraz z zaznaczeniem i barwami.');}catch(e){toast(e.message||'Nieprawidłowy plik projektu.');}finally{e.target.value='';}};
   function requestIDB(request){return new Promise((resolve,reject)=>{request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);});}
@@ -401,7 +436,7 @@
     try{custom=C.normalizePalette(JSON.parse(localStorage.getItem('led-studio-palette-v1')||'[]'));}catch{custom=[];}
     buildPresets();drawDemo();clearTimeout(saveTimer);
     const startRevision=revision;
-    try{const request=indexedDB.open('led-studio-v1',1);request.onupgradeneeded=()=>request.result.createObjectStore('projects');db=await requestIDB(request);const last=await requestIDB(db.transaction('projects','readonly').objectStore('projects').get('last'));if(last&&revision===startRevision){clearTimeout(saveTimer);await restoreProject(last);if(last.engineRevision!==3)scheduleSave();else status('Przywrócono ostatni projekt');}else scheduleSave();}catch{status('Zapis automatyczny niedostępny',false);}
+    try{const request=indexedDB.open('led-studio-v1',1);request.onupgradeneeded=()=>request.result.createObjectStore('projects');db=await requestIDB(request);const last=await requestIDB(db.transaction('projects','readonly').objectStore('projects').get('last'));if(last&&revision===startRevision){clearTimeout(saveTimer);await restoreProject(last);if(last.engineRevision!==4)scheduleSave();else status('Przywrócono ostatni projekt');}else scheduleSave();}catch{status('Zapis automatyczny niedostępny',false);}
   }
   $('help').onclick=()=>$('help-dialog').showModal();$('close-help').onclick=()=>$('help-dialog').close();$('help-dialog').onclick=e=>{if(e.target===$('help-dialog')){const r=e.target.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)e.target.close();}};
   document.addEventListener('keydown',e=>{if(e.target.matches('input,textarea'))return;if((e.ctrlKey||e.metaKey)&&e.key==='z'){e.preventDefault();$('undo').click();}if(e.key==='b')setTool('brush');if(e.key==='e')setTool('erase');});
