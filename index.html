@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Zmieniaj barwę światła LED na zdjęciach. Stałe palety bieli i RGB, własne ustawienia i eksport PNG. Wszystko lokalnie w przeglądarce.">
+  <meta name="theme-color" content="#f5f4ef">
+  <title>LED Studio — Twoje światło, każda barwa</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23ea642f'/%3E%3Cpath d='M18 17h9v30h20v8H18z' fill='white'/%3E%3Ccircle cx='43' cy='20' r='8' fill='%23ffd9aa'/%3E%3C/svg%3E">
+  <style>
+:root{--paper:#f5f4ef;--panel:#fff;--ink:#242720;--muted:#777b73;--line:#e7e8e1;--accent:#e96432;--accent-soft:#fff1e8;--green:#74907b;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);font-synthesis:none}*{box-sizing:border-box}body{margin:0;background:var(--paper)}button,input{font:inherit}button{cursor:pointer}button:disabled{opacity:.4;cursor:not-allowed}button,a,input,summary{ -webkit-tap-highlight-color:transparent}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible,canvas:focus-visible{outline:3px solid #5687ac;outline-offset:3px}button{transition:background .15s,border-color .15s,transform .15s}button:hover:not(:disabled){filter:brightness(.97)}[hidden]{display:none!important}.topbar{height:88px;max-width:1800px;margin:auto;padding:0 42px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:12px;font-size:24px;font-weight:730;letter-spacing:-.8px;color:var(--ink);text-decoration:none}.brand-light{font-weight:430}.brand-icon{position:relative;display:grid;place-items:center;width:38px;height:38px;background:var(--accent);border-radius:10px;color:white;font-size:25px}.brand-icon span{position:absolute;width:9px;height:9px;border-radius:50%;background:#ffd9aa;right:7px;top:7px}.topnote{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px}.status-dot{width:6px;height:6px;border-radius:50%;display:inline-block;background:var(--green);flex:none}.text-button{border:0;background:transparent;color:var(--ink);padding:8px 0;font-size:13px}.text-button span{margin-left:12px;color:var(--accent)}main{max-width:1800px;margin:0 auto;padding:0 42px}.intro{display:flex;align-items:flex-end;justify-content:space-between;margin:40px 0 32px;gap:24px}.eyebrow{font:600 10px/1.5 monospace;letter-spacing:1.8px;color:var(--accent);margin-bottom:14px}h1{font-size:clamp(30px,3.2vw,46px);line-height:1.09;letter-spacing:-1.7px;margin:0;font-weight:540}h1 span{color:#8d9387}.intro>p{font-size:13px;line-height:1.8;color:var(--muted);margin:0 0 3px}.workspace{display:grid;grid-template-columns:240px minmax(280px,1fr) 280px;gap:20px;align-items:start}.panel{border:1px solid var(--line);border-radius:14px;background:var(--panel);overflow:hidden}.panel section{padding:22px 20px}.panel section+section{border-top:1px solid var(--line)}h2{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:650;margin:0 0 19px;letter-spacing:-.2px}.step{font:500 10px monospace;color:#9a9e93;border:1px solid var(--line);border-radius:5px;padding:4px}.upload{display:flex;flex-direction:column;align-items:center;gap:9px;width:100%;background:#fafaf7;border:1px dashed #cfd3c8;border-radius:9px;padding:21px 8px 19px}.upload-icon{color:var(--accent);font-size:25px;line-height:1}.upload strong{font-size:13px;font-weight:600}.upload>span:last-child{font-size:10px;color:var(--muted)}.file-info{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--muted);margin:13px 0 0;min-width:0}.file-info #filename{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.file-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0}.small{font-size:11px}.hint{font-size:11px;color:var(--muted);line-height:1.65;margin:0 0 15px}.selection-section h2{margin-bottom:12px}.segmented{display:flex;background:#f3f4ef;padding:3px;border-radius:7px}.segmented button{flex:1;border:0;background:transparent;color:var(--muted);padding:8px 9px;border-radius:5px;font-size:11px;white-space:nowrap}.segmented button[aria-pressed=true]{background:white;box-shadow:0 1px 4px #24272012;color:var(--ink)}.tools{margin-bottom:21px}.range-label{display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:11px;margin:17px 0 10px;color:#5b6056}.range-label output{font:10px monospace;color:#8b8e85}input[type=range]{width:100%;margin:0;accent-color:var(--accent);height:4px;cursor:pointer}input[type=range]::-webkit-slider-thumb{cursor:ew-resize}.check-row{display:flex;gap:7px;align-items:center;margin:21px 0 17px;font-size:11px;color:#5b6056}.check-row input{accent-color:var(--accent);margin:0}.mask-key{width:7px;height:7px;background:#43c9aa;border-radius:2px;margin-left:auto}.button-row{display:flex;gap:8px}.button-row button{flex:1}.secondary{border:1px solid #dfe3d9;background:#fff;color:#555d4f;border-radius:7px;padding:10px 12px;font-size:11px}.full{width:100%}.auto-select{margin-top:22px;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:10px;line-height:1.6}.auto-select summary{cursor:pointer}.auto-select button{margin:15px 0 10px}.auto-select .hint{margin:0}.saved-note{padding:14px 20px;background:#f7f9f4;display:flex;gap:7px;align-items:center;color:#737f6c;font-size:10px;line-height:1.5}.editor{min-width:0}.editor-top{height:47px;display:flex;align-items:center;justify-content:space-between;padding:0 3px;gap:10px}.editor-top>span{font:9px monospace;color:#82867b;letter-spacing:1px}.view-tabs button{padding:6px 10px;font-size:10px}.stage{background:#232824;border-radius:10px;overflow:hidden;position:relative;padding:24px 0 0;min-height:330px;display:flex;flex-direction:column;justify-content:center;border:2px solid transparent}.stage.dragover{border-color:var(--accent)}.canvas-wrap{position:relative;margin:auto;width:100%;line-height:0}.canvas-wrap canvas{width:100%;height:auto;display:block}#overlay{position:absolute;inset:0;touch-action:none;cursor:none}#photo{border-radius:2px}.brush-cursor{position:absolute;border:1px solid #fff9;border-radius:50%;box-shadow:0 0 0 1px #0006;pointer-events:none;transform:translate(-50%,-50%);z-index:2}.compare-line{position:absolute;top:0;bottom:0;left:50%;width:1px;background:#fff9;pointer-events:none}.compare-line span{position:absolute;top:50%;left:-14px;width:28px;height:28px;background:#f5f4ef;color:#343a30;border-radius:50%;display:grid;place-items:center;font-size:15px}.scene-caption{display:flex;justify-content:space-between;align-items:center;padding:22px 20px 17px;gap:10px;font-size:10px;color:#a6afa2}#preview-badge{color:#f0dfc4;border:1px solid #a0a88a44;padding:7px 9px;border-radius:4px;font-size:10px}#dimensions{font:9px monospace}.editor-bottom{padding:14px 2px;display:flex;justify-content:space-between;gap:16px;color:var(--muted);font-size:10px;line-height:1.6}.live{white-space:nowrap;align-self:flex-start;display:flex;gap:5px;align-items:center}.live i{width:4px;height:4px;background:var(--green);border-radius:50%}.under-editor{border-top:1px solid var(--line);margin-top:15px;padding:22px 2px;display:grid;grid-template-columns:1fr 1fr;gap:16px}.under-editor>div{position:relative;padding-left:28px}.under-editor strong{font-size:11px;font-weight:550}.under-editor p{font-size:10px;line-height:1.6;color:var(--muted);margin:5px 0}.mini-icon{position:absolute;left:0;top:0;color:#878f7b;font-size:18px}.section-label{font:9px monospace;letter-spacing:1.2px;color:#959b8e;margin-bottom:11px}.white-presets{display:grid;grid-template-columns:1fr 1fr;gap:7px}.white-preset{border:1px solid var(--line);border-radius:7px;text-align:left;display:flex;align-items:center;gap:8px;background:#fff;padding:10px 9px;min-width:0}.white-preset[aria-pressed=true]{border-color:var(--accent);background:var(--accent-soft)}.swatch{display:block;width:21px;height:21px;border-radius:50%;box-shadow:inset 0 0 0 1px #0000000a;flex:none}.white-preset strong{display:block;font-size:10px;font-weight:600;white-space:nowrap}.white-preset small{display:block;font-size:8px;color:#85887d;margin-top:3px;white-space:nowrap}.rgb-label{margin-top:21px}.rgb-presets{display:flex;gap:8px;justify-content:space-between}.rgb-preset{border:1px solid transparent;border-radius:50%;background:transparent;padding:3px;display:grid;place-items:center}.rgb-preset[aria-pressed=true]{border-color:var(--accent)}.rgb-preset .swatch{width:23px;height:23px}.custom-color{display:flex;justify-content:space-between;align-items:center;margin:23px 0;font-size:11px;color:#5b6056}.custom-color>div{display:flex;align-items:center;gap:7px}.custom-color input[type=color]{width:24px;height:25px;border:0;padding:0;background:transparent;cursor:pointer}.custom-color input[type=text]{width:76px;font:10px monospace;border:1px solid var(--line);padding:8px 5px;border-radius:5px;color:#5b6056;text-align:center}.preset-save{display:flex;gap:6px;margin:22px 0 7px}.preset-save input{min-width:0;flex:1;border:1px solid var(--line);border-radius:6px;font-size:10px;padding:10px 8px}.preset-save button{background:#f4f5f0;color:#647057;border:1px solid var(--line);width:32px;border-radius:6px;font-size:20px}.custom-presets{display:flex;flex-direction:column;gap:5px}.custom-preset{display:flex;gap:5px}.custom-preset>button:first-child{border:1px solid var(--line);padding:7px;display:flex;gap:7px;align-items:center;background:white;flex:1;min-width:0;border-radius:5px;font-size:10px;color:var(--muted);text-align:left}.custom-preset .swatch{width:12px;height:12px}.custom-preset .delete{border:0;background:transparent;color:#929788;font-size:15px}.palette-actions,.project-actions{display:flex;justify-content:space-between;gap:12px}.palette-actions{margin-top:9px}.palette-actions button,.project-actions button{font-size:10px;color:#808773}.export-section{background:#fcfcf9}.primary{display:flex;align-items:center;justify-content:space-between;background:var(--accent);color:white;border:0;padding:14px;border-radius:7px;font-size:12px;font-weight:600}.primary span{font-size:17px;font-weight:400}.export-section .secondary{margin-top:8px}.project-actions{margin:10px 0 4px}.export-section .hint{font-size:9px;margin:0;line-height:1.7}.compare-controls{display:flex;gap:12px;align-items:center;padding:14px 0 4px;font-size:10px;color:var(--muted)}footer{display:flex;justify-content:space-between;gap:20px;border-top:1px solid var(--line);margin:38px 0 22px;padding-top:19px;color:#999e91;font-size:9px;line-height:1.5}footer>span:first-child{font:9px monospace;letter-spacing:.6px}.footer-dot{margin:0 8px;color:var(--accent)}.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);padding:14px 22px;max-width:min(90vw,600px);background:#283125;color:white;border-radius:9px;z-index:20;box-shadow:0 5px 30px #0002;font-size:13px;line-height:1.6}dialog{max-width:600px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:18px;padding:38px;color:var(--ink);background:#fafbf7;box-shadow:0 20px 100px #0003}dialog::backdrop{background:#171d1877;backdrop-filter:blur(4px)}dialog h2{font-size:26px;letter-spacing:-.8px;margin-bottom:22px}dialog ol{padding-left:20px}dialog li{font-size:13px;line-height:1.8;margin-bottom:14px}dialog p{font-size:11px;line-height:1.8;color:var(--muted)}.close{position:absolute;right:15px;top:12px;background:none;border:0;font-size:24px;color:var(--muted)}
+@media(min-width:1500px){.workspace{grid-template-columns:260px minmax(300px,1fr) 300px;gap:26px}.panel section{padding:25px}.intro{margin:48px 0 36px}.stage{padding-top:42px}.scene-caption{padding-bottom:24px}}
+@media(max-width:1150px){main{padding:0 22px}.topbar{padding:0 22px}.workspace{grid-template-columns:205px minmax(250px,1fr) 245px;gap:13px}.panel section{padding:17px 14px}.topnote{font-size:10px}.intro>p{font-size:11px}.editor-top>span{display:none}.editor-top{justify-content:flex-end}.live{display:none}.rgb-presets{gap:3px}.rgb-preset .swatch{width:22px;height:22px}.white-preset{padding:8px 6px;gap:5px}.under-editor{grid-template-columns:1fr}.stage{min-height:270px}.scene-caption{padding-left:12px;padding-right:12px}.saved-note{padding:12px 14px}}
+@media(max-width:900px){.workspace{grid-template-columns:220px 1fr}.editor{grid-column:2;grid-row:1}.right-panel{grid-column:1/-1;display:grid;grid-template-columns:1.5fr 1fr}.right-panel section+section{border-top:0;border-left:1px solid var(--line)}.white-presets{grid-template-columns:repeat(4,1fr)}.rgb-presets{justify-content:flex-start;gap:12px}.under-editor{grid-template-columns:1fr 1fr}.intro>p{max-width:260px}.topnote{display:none}.editor-top{height:38px}.rgb-preset .swatch{width:25px;height:25px}}
+@media(max-width:620px){.topbar{height:68px;padding:0 18px}.brand{font-size:21px}.brand-icon{width:32px;height:32px;font-size:22px}.topbar>.text-button{font-size:11px}main{padding:0 16px}.intro{margin:27px 0 20px;display:block}.intro>p{margin:15px 0 0;font-size:11px;max-width:none}.intro>p br{display:none}h1{font-size:35px}.eyebrow{font-size:9px;margin-bottom:10px}.workspace{display:flex;flex-direction:column;gap:14px}.panel,.editor{width:100%}.left-panel{display:grid;grid-template-columns:1fr 1fr}.left-panel section{padding:15px 12px}.left-panel section+section{border-top:0;border-left:1px solid var(--line)}.left-panel h2{font-size:12px;gap:6px;margin-bottom:12px}.left-panel .hint{font-size:10px}.saved-note{grid-column:1/-1}.auto-select{margin-top:12px}.upload{padding:17px 3px}.upload>span:last-child{font-size:8px}.range-label{font-size:10px}.check-row{font-size:10px;margin:15px 0}.button-row{gap:5px}.button-row button{font-size:9px;padding:8px 4px}.tools{margin-bottom:15px}.tools button{padding:7px 5px;font-size:10px}.stage{padding-top:12px;min-height:250px}.editor-top>span{display:block;font-size:8px}.editor-top{justify-content:space-between}.editor-bottom{font-size:9px}.under-editor{display:none}.right-panel{display:block}.right-panel section{padding:20px}.right-panel section+section{border-left:0;border-top:1px solid var(--line)}.rgb-presets{justify-content:space-between}.white-preset{display:block;padding:10px 6px;text-align:center}.white-preset .swatch{margin:0 auto 8px}.white-preset strong{font-size:11px}.white-preset small{font-size:9px}.custom-color{margin:20px 0}.custom-color input[type=text]{font-size:12px;width:100px}.section-label{font-size:10px}.right-panel .range-label{font-size:12px}.preset-save input{font-size:12px;padding:12px}.palette-actions button,.project-actions button{font-size:11px}.export-section .hint{font-size:10px}.primary{font-size:14px}.secondary{font-size:12px}.export-section h2{display:none}footer{display:block;margin-top:24px;font-size:9px}footer>span{display:block;margin-bottom:12px}.scene-caption{padding-top:15px}.toast{font-size:11px;width:90vw}dialog{padding:28px 24px}}
+
+</style>
+
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="LED Studio — strona główna"><span class="brand-icon">L<span></span></span><span>LED<span class="brand-light"> Studio</span></span></a>
+    <div class="topnote"><span class="status-dot"></span> Twoje zdjęcia zostają na tym urządzeniu</div>
+    <button id="help" class="text-button">Jak to działa <span aria-hidden="true">↗</span></button>
+  </header>
+  <main>
+    <section class="intro">
+      <div><div class="eyebrow">PRACOWNIA KOLORU / 01</div><h1>Jedno zdjęcie.<br><span>Każda barwa światła.</span></h1></div>
+      <p>Zaznacz światło, wybierz kolor i zapisz efekt.<br>Twoje stałe barwy — gotowe przy każdej wizycie.</p>
+    </section>
+    <div class="workspace">
+      <aside class="panel left-panel" aria-label="Zdjęcie i zaznaczenie">
+        <section>
+          <h2><span class="step">01</span> Twoje zdjęcie</h2>
+          <button id="upload" class="upload"><span class="upload-icon" aria-hidden="true">＋</span><strong>Wgraj zdjęcie</strong><span>JPG, PNG lub WebP · do 30 MB</span></button>
+          <input id="image-file" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+          <div class="file-info"><span class="file-dot"></span><span id="filename">Scena przykładowa</span></div>
+          <button id="demo" class="text-button small">Wczytaj scenę przykładową ↗</button>
+        </section>
+        <section class="selection-section">
+          <h2><span class="step">02</span> Obszar światła</h2>
+          <p class="hint">Pomaluj taśmę i jej poświatę. Tylko zaznaczony obszar zmieni kolor.</p>
+          <div class="segmented tools" aria-label="Narzędzia zaznaczenia"><button id="brush" aria-pressed="true">◌ Pędzel</button><button id="erase" aria-pressed="false">▱ Gumka</button></div>
+          <div class="range-label"><label for="brush-size">Rozmiar pędzla</label><output id="brush-value">80 px</output></div>
+          <input id="brush-size" type="range" min="8" max="400" value="80">
+          <div class="check-row"><input id="show-mask" type="checkbox"><label for="show-mask">Pokaż zaznaczenie</label><span class="mask-key"></span></div>
+          <div class="button-row"><button id="undo" class="secondary small" disabled>↶ Cofnij</button><button id="clear-mask" class="secondary small">Wyczyść</button></div>
+          <details class="auto-select"><summary>Szybkie zaznaczenie jasnego światła</summary><label for="threshold" class="range-label">Próg jasności <output id="threshold-value">150</output></label><input id="threshold" type="range" min="30" max="245" value="150"><button id="auto-mask" class="secondary full">Zaznacz jasne obszary</button><p class="hint">Obejmuje też inne jasne elementy. Usuń je gumką. Zastępuje obecne zaznaczenie.</p></details>
+        </section>
+        <div class="saved-note"><span id="save-dot" class="status-dot"></span><span id="save-status" role="status">Przygotowuję pracownię…</span></div>
+      </aside>
+      <section class="editor" aria-label="Podgląd zdjęcia">
+        <div class="editor-top"><span id="scene-label">SCENA PRZYKŁADOWA</span><div class="segmented view-tabs"><button id="view-result" aria-pressed="true">Efekt</button><button id="view-before" aria-pressed="false">Oryginał</button><button id="view-compare" aria-pressed="false">Porównaj</button></div></div>
+        <div id="dropzone" class="stage">
+          <div id="canvas-wrap" class="canvas-wrap"><canvas id="photo" width="1200" height="800" aria-label="Podgląd zdjęcia. Przeciągnij pędzlem po świetle, aby zaznaczyć obszar."></canvas><canvas id="overlay" width="1200" height="800" aria-label="Obszar rysowania zaznaczenia" tabindex="0"></canvas><span id="brush-cursor" class="brush-cursor" hidden></span><div id="compare-line" class="compare-line" hidden><span>↔</span></div></div>
+          <div class="scene-caption"><span id="preview-badge">3000 K · Ciepła biel</span><span id="dimensions">1200 × 800 px</span></div>
+        </div>
+        <div id="compare-controls" class="compare-controls" hidden><label for="compare-slider">Oryginał</label><input id="compare-slider" type="range" min="0" max="100" value="50"><span>Efekt</span></div>
+        <div class="editor-bottom"><span id="editor-hint">Zaznaczenie przykładowe jest gotowe. Wybierz barwę po prawej.</span><span class="live"><i></i> Podgląd na żywo</span></div>
+        <div class="under-editor"><div><span class="mini-icon">↗</span><strong>Powtarzalny efekt</strong><p>Stałe wartości kolorów i zapisane ustawienia.</p></div><div><span class="mini-icon">▧</span><strong>Oryginał pod ręką</strong><p>Porównuj i wracaj do zdjęcia źródłowego.</p></div></div>
+      </section>
+      <aside class="panel right-panel" aria-label="Barwy i eksport">
+        <section>
+          <h2><span class="step">03</span> Wybierz barwę</h2>
+          <div class="section-label">STAŁA PALETA BIELI</div><div id="white-presets" class="white-presets"></div>
+          <div class="section-label rgb-label">KOLORY RGB</div><div id="rgb-presets" class="rgb-presets"></div>
+          <div class="custom-color"><label for="color-picker">Własny kolor</label><div><input id="color-picker" type="color" value="#ffd2a1" aria-label="Wybierz własny kolor"><input id="hex" type="text" value="#FFD2A1" maxlength="7" spellcheck="false" aria-label="Kod koloru HEX"></div></div>
+          <div class="range-label"><label for="strength">Siła zmiany</label><output id="strength-value">100%</output></div><input id="strength" type="range" min="0" max="100" value="100">
+          <div class="range-label"><label for="brightness">Jasność światła</label><output id="brightness-value">100%</output></div><input id="brightness" type="range" min="20" max="150" value="100">
+          <div class="preset-save"><input id="preset-name" type="text" maxlength="40" placeholder="Nazwa własnego ustawienia" aria-label="Nazwa własnego ustawienia"><button id="save-preset" aria-label="Zapisz własne ustawienie" title="Zapisz własne ustawienie">＋</button></div>
+          <div id="custom-presets" class="custom-presets"></div>
+          <div class="palette-actions"><button id="export-palette" class="text-button small">Zapisz paletę</button><button id="import-palette" class="text-button small">Wczytaj paletę</button></div><input id="palette-file" type="file" accept="application/json,.json" hidden>
+        </section>
+        <section class="export-section"><h2><span class="step">04</span> Zapisz efekt</h2><button id="download" class="primary full">Pobierz zdjęcie PNG <span>↓</span></button><button id="download-all" class="secondary full">Wszystkie stałe barwy · ZIP</button><div class="project-actions"><button id="save-project" class="text-button small">Zapisz projekt</button><button id="open-project" class="text-button small">Otwórz projekt</button></div><input id="project-file" type="file" accept="application/json,.json" hidden><p class="hint">Projekt zachowuje zdjęcie, zaznaczenie i ustawienia. Paleta przenosi kolory między urządzeniami.</p></section>
+      </aside>
+    </div>
+    <footer><span>LED STUDIO <span class="footer-dot">/</span> PRACOWNIA TWOJEGO ŚWIATŁA</span><span>Barwy na zdjęciu są wizualizacją, nie pomiarem temperatury światła.</span></footer>
+  </main>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <dialog id="help-dialog"><button id="close-help" class="close" aria-label="Zamknij instrukcję">×</button><div class="eyebrow">OD ZDJĘCIA DO NOWEJ BARWY</div><h2>Twój stały zestaw światła.</h2><ol><li><strong>Wgraj zdjęcie.</strong> Najlepiej użyć zdjęcia z widoczną poświatą i bez mocno przepalonego światła.</li><li><strong>Zaznacz światło pędzlem.</strong> Uwzględnij taśmę i odbicia światła. Gumką usuń zaznaczenie z otoczenia. Możesz też zacząć od jasnych obszarów.</li><li><strong>Wybierz kolor.</strong> Stałe próbki przywracają ten sam HEX, siłę i jasność. Własne ustawienie zapisz przyciskiem +.</li><li><strong>Pobierz PNG lub zestaw ZIP.</strong> Zapisz projekt, aby odtworzyć zdjęcie z identycznym zaznaczeniem. Paletę możesz przenieść na inny komputer.</li></ol><p>Ostatni projekt i własne próbki zapisują się w tej przeglądarce, jeśli pozwala na to jej pamięć. Wyczyszczenie danych przeglądarki usuwa ten zapis — pobierz projekt jako kopię.</p><p>Te same ustawienia i ten sam projekt dają ten sam efekt. Różne zdjęcia, ekspozycje i ekrany mogą wyglądać inaczej. Oznaczenia K są orientacyjnymi próbkami wizualnymi. Duże zdjęcia zmniejszamy do 3200 px na dłuższym boku.</p></dialog>
+<script>
+/* Deterministic color engine. No network, randomness, or dependencies. */
+(function (root) {
+  'use strict';
+  const clamp = (n, low, high) => Math.max(low, Math.min(high, n));
+  const PRESETS = [
+    {id:'warm2700',name:'Bardzo ciepła',label:'2700 K',hex:'#FFB46B',strength:100,brightness:100,group:'white'},
+    {id:'warm3000',name:'Ciepła biel',label:'3000 K',hex:'#FFD2A1',strength:100,brightness:100,group:'white'},
+    {id:'neutral4000',name:'Neutralna',label:'4000 K',hex:'#FFE5C4',strength:100,brightness:100,group:'white'},
+    {id:'cool6500',name:'Zimna biel',label:'6500 K',hex:'#E6EDFF',strength:100,brightness:100,group:'white'},
+    {id:'red',name:'Czerwony',label:'RGB',hex:'#FF3B30',strength:100,brightness:100,group:'rgb'},
+    {id:'amber',name:'Bursztynowy',label:'RGB',hex:'#FFB020',strength:100,brightness:100,group:'rgb'},
+    {id:'green',name:'Zielony',label:'RGB',hex:'#42F584',strength:100,brightness:100,group:'rgb'},
+    {id:'cyan',name:'Turkusowy',label:'RGB',hex:'#39D9E6',strength:100,brightness:100,group:'rgb'},
+    {id:'blue',name:'Niebieski',label:'RGB',hex:'#397CFF',strength:100,brightness:100,group:'rgb'},
+    {id:'purple',name:'Fioletowy',label:'RGB',hex:'#B166FF',strength:100,brightness:100,group:'rgb'}
+  ];
+  function normalizeSettings(value) {
+    if(!value || !/^#[0-9a-f]{6}$/i.test(value.hex)) throw new Error('Nieprawidłowy kolor HEX.');
+    if(!Number.isFinite(Number(value.strength)) || !Number.isFinite(Number(value.brightness))) throw new Error('Nieprawidłowe ustawienia światła.');
+    return {hex:value.hex.toUpperCase(),strength:clamp(Number(value.strength),0,100),brightness:clamp(Number(value.brightness),20,150)};
+  }
+  function recolor(source, mask, settings, destination) {
+    const s=normalizeSettings(settings), out=destination || new Uint8ClampedArray(source.length);
+    if(source.length!==mask.length || out.length!==source.length) throw new Error('Niezgodne wymiary zdjęcia i zaznaczenia.');
+    const rgb=[1,3,5].map(i=>parseInt(s.hex.slice(i,i+2),16)/255), strength=s.strength/100, brightness=s.brightness/100;
+    for(let i=0;i<source.length;i+=4){
+      const amount=mask[i+3]/255*strength;
+      if(amount===0){out[i]=source[i];out[i+1]=source[i+1];out[i+2]=source[i+2];out[i+3]=source[i+3];continue;}
+      const r=source[i]/255,g=source[i+1]/255,b=source[i+2]/255;
+      const luminance=.2126*r+.7152*g+.0722*b;
+      const level=clamp((Math.max(r,g,b)*.7+luminance*.3)*brightness,0,1);
+      // Retain a small neutral highlight in the brightest LED cores.
+      const core=clamp((level-.88)/.12,0,1)*.24;
+      for(let c=0;c<3;c++){
+        const target=(rgb[c]*(1-core)+core)*level*255;
+        out[i+c]=Math.round(source[i+c]*(1-amount)+target*amount);
+      }
+      out[i+3]=source[i+3];
+    }
+    return out;
+  }
+  function normalizePalette(value) {
+    if(!Array.isArray(value)||value.length>60)throw new Error('Paleta może mieć maksymalnie 60 kolorów.');
+    return value.map((item,i)=>({...normalizeSettings(item),id:'custom-'+i,name:String(item.name||'Mój kolor').slice(0,40),label:'Własny',group:'custom'}));
+  }
+  const crcTable=Array.from({length:256},(_,n)=>{for(let i=0;i<8;i++)n=n&1?0xedb88320^(n>>>1):n>>>1;return n>>>0;});
+  function crc32(bytes){let crc=0xffffffff;for(const byte of bytes)crc=crcTable[(crc^byte)&255]^(crc>>>8);return (crc^0xffffffff)>>>0;}
+  // Store-only ZIP: PNG files are already compressed, so no ZIP library is needed.
+  function zip(files){
+    const chunks=[],central=[];let offset=0,centralSize=0;
+    for(const file of files){
+      const name=new TextEncoder().encode(file.name),data=file.data,crc=crc32(data);
+      const header=new Uint8Array(30+name.length),v=new DataView(header.buffer);
+      v.setUint32(0,0x04034b50,true);v.setUint16(4,20,true);v.setUint16(6,0x0800,true);v.setUint16(12,33,true);v.setUint32(14,crc,true);v.setUint32(18,data.length,true);v.setUint32(22,data.length,true);v.setUint16(26,name.length,true);header.set(name,30);
+      chunks.push(header,data);
+      const c=new Uint8Array(46+name.length),cv=new DataView(c.buffer);
+      cv.setUint32(0,0x02014b50,true);cv.setUint16(4,20,true);cv.setUint16(6,20,true);cv.setUint16(8,0x0800,true);cv.setUint16(14,33,true);cv.setUint32(16,crc,true);cv.setUint32(20,data.length,true);cv.setUint32(24,data.length,true);cv.setUint16(28,name.length,true);cv.setUint32(42,offset,true);c.set(name,46);central.push(c);centralSize+=c.length;offset+=header.length+data.length;
+    }
+    const end=new Uint8Array(22),ev=new DataView(end.buffer);ev.setUint32(0,0x06054b50,true);ev.setUint16(8,files.length,true);ev.setUint16(10,files.length,true);ev.setUint32(12,centralSize,true);ev.setUint32(16,offset,true);
+    const result=new Uint8Array(offset+centralSize+22);let pos=0;for(const a of [...chunks,...central,end]){result.set(a,pos);pos+=a.length;}return result;
+  }
+  const API={PRESETS,normalizeSettings,normalizePalette,recolor,zip,crc32,clamp};
+  if(typeof module==='object'&&module.exports)module.exports=API;else root.LEDCore=API;
+})(typeof window!=='undefined'?window:globalThis);
+
+(() => {
+  'use strict';
+  const $=id=>document.getElementById(id), C=LEDCore;
+  const photo=$('photo'), overlay=$('overlay'), ctx=photo.getContext('2d'), ox=overlay.getContext('2d');
+  const source=document.createElement('canvas'), mask=document.createElement('canvas'), result=document.createElement('canvas');
+  const sx=source.getContext('2d',{willReadFrequently:true}), mx=mask.getContext('2d',{willReadFrequently:true}), rx=result.getContext('2d');
+  let original=null, maskData=null, settings={hex:'#FFD2A1',strength:100,brightness:100};
+  let custom=[], selected='warm3000', fileName='scena-przykladowa', isDemo=true, mode='result', tool='brush', history=[];
+  let drawing=false,lastPoint=null,renderQueued=false,saveTimer=null,toastTimer=null,db=null,revision=0,busy=false;
+  const MAX_SIDE=3200, MAX_BYTES=30*1024*1024;
+  function toast(message){$('toast').textContent=message;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,4300);}
+  function status(message,ok=true){$('save-status').textContent=message;$('save-dot').style.background=ok?'#74907b':'#d99543';}
+  function safeName(value){return String(value).replace(/\.[^.]+$/,'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9_-]+/gi,'-').replace(/^-|-$/g,'').slice(0,70)||'zdjecie-led';}
+  function download(blob,name){const a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);}
+  function jsonDownload(value,name){download(new Blob([JSON.stringify(value,null,2)],{type:'application/json'}),name);}
+  function blobOf(canvas){return new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(new Error('Nie udało się zapisać obrazu.')),'image/png'));}
+  function loadImage(url){return new Promise((resolve,reject)=>{const image=new Image();image.onload=()=>resolve(image);image.onerror=()=>reject(new Error('Nie można odczytać obrazu. Użyj JPG, PNG lub WebP.'));image.src=url;});}
+  function setDimensions(w,h){for(const canvas of [source,mask,result,photo,overlay]){canvas.width=w;canvas.height=h;}history=[];$('undo').disabled=true;$('dimensions').textContent=`${w} × ${h} px`;}
+  function readPixels(){original=sx.getImageData(0,0,source.width,source.height);readMask();}
+  function readMask(){maskData=mx.getImageData(0,0,mask.width,mask.height);}
+  function remember(){history.push(new Uint8ClampedArray(maskData.data));while(history.length>8||history.reduce((n,a)=>n+a.byteLength,0)>96*1024*1024)history.shift();$('undo').disabled=!history.length;}
+  function maskChanged(){readMask();revision++;queueRender();scheduleSave();}
+  function setMode(next){mode=next;for(const value of ['result','before','compare'])$('view-'+value).setAttribute('aria-pressed',String(next===value));$('compare-controls').hidden=next!=='compare';$('compare-line').hidden=next!=='compare';overlay.style.cursor=next==='result'?'none':'default';$('brush-cursor').hidden=true;queueRender();}
+  function queueRender(){if(renderQueued)return;renderQueued=true;requestAnimationFrame(()=>{renderQueued=false;render();});}
+  function render(){
+    if(!original)return;
+    const data=C.recolor(original.data,maskData.data,settings);rx.putImageData(new ImageData(data,source.width,source.height),0,0);
+    ctx.clearRect(0,0,photo.width,photo.height);ctx.drawImage(mode==='before'?source:result,0,0);
+    if(mode==='compare'){const ratio=Number($('compare-slider').value)/100;ctx.save();ctx.beginPath();ctx.rect(0,0,photo.width*ratio,photo.height);ctx.clip();ctx.clearRect(0,0,photo.width,photo.height);ctx.drawImage(source,0,0);ctx.restore();$('compare-line').style.left=(ratio*100)+'%';}
+    ox.clearRect(0,0,overlay.width,overlay.height);
+    if($('show-mask').checked&&mode==='result'){ox.drawImage(mask,0,0);ox.globalCompositeOperation='source-in';ox.fillStyle='rgba(45,220,173,.46)';ox.fillRect(0,0,overlay.width,overlay.height);ox.globalCompositeOperation='source-over';}
+  }
+  function updateControls(){
+    $('color-picker').value=settings.hex;$('hex').value=settings.hex;$('strength').value=settings.strength;$('brightness').value=settings.brightness;
+    $('strength-value').textContent=settings.strength+'%';$('brightness-value').textContent=settings.brightness+'%';
+    document.querySelectorAll('[data-preset]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.preset===selected)));
+    const preset=[...C.PRESETS,...custom].find(p=>p.id===selected);
+    $('preview-badge').textContent=preset?(preset.group==='white'?preset.label+' · ':'')+preset.name:settings.hex+' · Własny kolor';
+  }
+  function applyPreset(p){revision++;settings=C.normalizeSettings(p);selected=p.id;updateControls();queueRender();scheduleSave();}
+  function buildPresets(){
+    for(const group of ['white','rgb']){
+      const holder=$(group+'-presets');holder.replaceChildren();
+      C.PRESETS.filter(p=>p.group===group).forEach(p=>{const b=document.createElement('button');b.className=group+'-preset';b.dataset.preset=p.id;b.title=p.name+' · '+p.hex;b.setAttribute('aria-label',p.label+' '+p.name);b.setAttribute('aria-pressed','false');const sw=document.createElement('span');sw.className='swatch';sw.style.background=p.hex;b.append(sw);if(group==='white'){const text=document.createElement('span'),strong=document.createElement('strong'),small=document.createElement('small');strong.textContent=p.label;small.textContent=p.name;text.append(strong,small);b.append(text);}b.onclick=()=>applyPreset(p);holder.append(b);});
+    }
+    buildCustom();updateControls();
+  }
+  function buildCustom(){
+    $('custom-presets').replaceChildren();
+    custom.forEach(p=>{const row=document.createElement('div');row.className='custom-preset';const b=document.createElement('button'),sw=document.createElement('span'),name=document.createElement('span'),del=document.createElement('button');sw.className='swatch';sw.style.background=p.hex;name.textContent=p.name;b.dataset.preset=p.id;b.append(sw,name);b.onclick=()=>applyPreset(p);del.className='delete';del.textContent='×';del.setAttribute('aria-label','Usuń ustawienie '+p.name);del.onclick=()=>{custom=custom.filter(v=>v.id!==p.id);if(selected===p.id)selected='';buildCustom();persistPalette();updateControls();scheduleSave();};row.append(b,del);$('custom-presets').append(row);});
+  }
+  function persistPalette(){try{localStorage.setItem('led-studio-palette-v1',JSON.stringify(custom));}catch{toast('Pamięć przeglądarki niedostępna. Zapisz paletę do pliku.');}}
+  function updateLabels(){ $('filename').textContent=isDemo?'Scena przykładowa':fileName;$('scene-label').textContent=isDemo?'SCENA PRZYKŁADOWA':'TWOJE ZDJĘCIE';$('editor-hint').textContent=isDemo?'Zaznaczenie przykładowe jest gotowe. Wybierz barwę po prawej.':'Pomaluj pędzlem taśmę i poświatę. Dopasuj zaznaczenie gumką.'; }
+  function drawDemo(){
+    setDimensions(1200,800);const w=1200,h=800;
+    // An original illustrated interior, used only as an interactive sample.
+    const wall=sx.createLinearGradient(0,0,0,h);wall.addColorStop(0,'#272f2c');wall.addColorStop(1,'#667064');sx.fillStyle=wall;sx.fillRect(0,0,w,h);
+    sx.fillStyle='#343b36';sx.fillRect(0,0,w,95);sx.fillStyle='#465046';sx.fillRect(0,95,1200,25);
+    sx.fillStyle='#3d453c';sx.fillRect(90,122,1020,265);
+    for(let x=90;x<1110;x+=170){sx.fillStyle=x%340===90?'#3f473e':'#444c42';sx.fillRect(x+2,122,166,258);sx.fillStyle='#252f27';sx.fillRect(x+165,122,3,260);sx.fillStyle='#64705b';sx.fillRect(x+13,363,140,2);}
+    const backsplash=sx.createLinearGradient(0,380,0,610);backsplash.addColorStop(0,'#cecec0');backsplash.addColorStop(.4,'#898e7d');backsplash.addColorStop(1,'#596253');sx.fillStyle=backsplash;sx.fillRect(90,385,1020,215);
+    sx.strokeStyle='#58634d33';sx.lineWidth=1;for(let y=390;y<600;y+=40){sx.beginPath();sx.moveTo(90,y);sx.lineTo(1110,y);sx.stroke();}
+    sx.save();sx.shadowColor='#ffffdf';sx.shadowBlur=32;sx.fillStyle='#fbfce9';sx.fillRect(104,383,992,7);sx.restore();
+    sx.fillStyle='#c3c5b6';sx.beginPath();sx.moveTo(70,600);sx.lineTo(1130,600);sx.lineTo(1190,644);sx.lineTo(10,644);sx.closePath();sx.fill();sx.fillStyle='#87917a';sx.fillRect(10,644,1180,9);
+    const base=sx.createLinearGradient(0,653,0,800);base.addColorStop(0,'#4d5945');base.addColorStop(1,'#303c2c');sx.fillStyle=base;sx.fillRect(30,653,1140,147);sx.fillStyle='#1c281d';for(let x=30;x<1170;x+=190)sx.fillRect(x,653,3,147);for(let x=60;x<1170;x+=190){sx.fillStyle='#69735f';sx.fillRect(x,668,120,3);}
+    sx.fillStyle='#3a4438';sx.beginPath();sx.ellipse(765,623,180,9,0,0,Math.PI*2);sx.fill();sx.fillStyle='#64725c';sx.fillRect(665,605,210,15);sx.fillStyle='#8a9480';sx.beginPath();sx.ellipse(770,605,105,13,0,0,Math.PI*2);sx.fill();
+    sx.strokeStyle='#a3ad97';sx.lineWidth=11;sx.beginPath();sx.moveTo(856,604);sx.lineTo(856,526);sx.bezierCurveTo(856,477,800,478,800,524);sx.lineTo(800,536);sx.stroke();
+    sx.fillStyle='#9a937c';sx.fillRect(182,508,89,91);sx.fillStyle='#b7ac91';sx.fillRect(192,499,68,11);sx.fillStyle='#72775f';sx.fillRect(303,546,55,54);sx.fillStyle='#94987b';sx.beginPath();sx.ellipse(330,546,28,6,0,0,Math.PI*2);sx.fill();
+    sx.strokeStyle='#39452e';sx.lineWidth=4;sx.beginPath();sx.moveTo(330,545);sx.lineTo(322,465);sx.moveTo(333,540);sx.lineTo(353,480);sx.stroke();for(const [x,y,a] of [[318,490,-.6],[337,509,.5],[351,480,-.6],[319,467,.3]]){sx.fillStyle='#687e4c';sx.beginPath();sx.ellipse(x,y,8,21,a,0,Math.PI*2);sx.fill();}
+    sx.fillStyle='#252f28';sx.fillRect(985,564,51,35);sx.fillStyle='#78836b';sx.fillRect(983,560,55,6);
+    const glow=mx.createLinearGradient(0,373,0,607);glow.addColorStop(0,'rgba(255,255,255,0)');glow.addColorStop(.06,'white');glow.addColorStop(.2,'rgba(255,255,255,.9)');glow.addColorStop(1,'rgba(255,255,255,0)');mx.fillStyle=glow;mx.fillRect(94,373,1012,234);
+    isDemo=true;fileName='scena-przykladowa';readPixels();updateLabels();setMode('result');revision++;scheduleSave();
+  }
+  async function openPhoto(file){
+    if(!file)return;if(!/^image\/(jpeg|png|webp)$/.test(file.type))return toast('Wybierz zdjęcie JPG, PNG lub WebP.');if(file.size>MAX_BYTES)return toast('Zdjęcie jest za duże. Maksymalnie 30 MB.');
+    const url=URL.createObjectURL(file);
+    try{const image=await loadImage(url);if(image.width*image.height>100000000)throw new Error('Zdjęcie ma za dużo pikseli. Zmniejsz je przed wgraniem.');const ratio=Math.min(1,MAX_SIDE/Math.max(image.width,image.height));setDimensions(Math.max(1,Math.round(image.width*ratio)),Math.max(1,Math.round(image.height*ratio)));sx.drawImage(image,0,0,source.width,source.height);readPixels();fileName=file.name;isDemo=false;revision++;updateLabels();setMode('result');scheduleSave();toast(ratio<1?'Wgrano zdjęcie. Zmniejszono je do 3200 px. Zaznacz światło pędzlem.':'Zdjęcie gotowe. Pomaluj pędzlem obszar światła.');}catch(e){toast(e.message);}finally{URL.revokeObjectURL(url);$('image-file').value='';}
+  }
+  function point(event){const r=overlay.getBoundingClientRect();return{x:(event.clientX-r.left)*overlay.width/r.width,y:(event.clientY-r.top)*overlay.height/r.height};}
+  function cursor(event){const rect=overlay.getBoundingClientRect(),size=Number($('brush-size').value)*rect.width/overlay.width;$('brush-cursor').style.width=size+'px';$('brush-cursor').style.height=size+'px';$('brush-cursor').style.left=(event.clientX-rect.left)+'px';$('brush-cursor').style.top=(event.clientY-rect.top)+'px';$('brush-cursor').hidden=mode!=='result'||event.pointerType==='touch';}
+  function stamp(x,y){const radius=Number($('brush-size').value)/2,g=mx.createRadialGradient(x,y,radius*.5,x,y,radius);g.addColorStop(0,'rgba(255,255,255,1)');g.addColorStop(1,'rgba(255,255,255,0)');mx.globalCompositeOperation=tool==='erase'?'destination-out':'source-over';mx.fillStyle=g;mx.fillRect(x-radius,y-radius,radius*2,radius*2);mx.globalCompositeOperation='source-over';}
+  function stroke(from,to){const distance=Math.hypot(to.x-from.x,to.y-from.y),steps=Math.max(1,Math.ceil(distance/(Number($('brush-size').value)*.15)));for(let i=1;i<=steps;i++){const t=i/steps;stamp(from.x+(to.x-from.x)*t,from.y+(to.y-from.y)*t);}readMask();queueRender();}
+  overlay.addEventListener('pointerdown',e=>{if(mode!=='result'||busy)return;e.preventDefault();remember();drawing=true;overlay.setPointerCapture(e.pointerId);lastPoint=point(e);stamp(lastPoint.x,lastPoint.y);readMask();queueRender();cursor(e);});
+  overlay.addEventListener('pointermove',e=>{cursor(e);if(drawing){const p=point(e);stroke(lastPoint,p);lastPoint=p;}});
+  function endStroke(){if(!drawing)return;drawing=false;lastPoint=null;maskChanged();}
+  overlay.addEventListener('pointerup',endStroke);overlay.addEventListener('pointercancel',endStroke);overlay.addEventListener('lostpointercapture',endStroke);overlay.addEventListener('pointerleave',()=>$('brush-cursor').hidden=true);
+  function setTool(value){tool=value;$('brush').setAttribute('aria-pressed',String(value==='brush'));$('erase').setAttribute('aria-pressed',String(value==='erase'));setMode('result');}
+  $('brush').onclick=()=>setTool('brush');$('erase').onclick=()=>setTool('erase');
+  $('brush-size').oninput=()=>$('brush-value').textContent=$('brush-size').value+' px';$('show-mask').onchange=queueRender;
+  $('undo').onclick=()=>{if(!history.length)return;mx.putImageData(new ImageData(history.pop(),mask.width,mask.height),0,0);$('undo').disabled=!history.length;maskChanged();};
+  $('clear-mask').onclick=()=>{remember();mx.clearRect(0,0,mask.width,mask.height);maskChanged();toast('Zaznaczenie wyczyszczone. Możesz je cofnąć.');};
+  $('threshold').oninput=()=>$('threshold-value').textContent=$('threshold').value;
+  $('auto-mask').onclick=()=>{remember();const threshold=Number($('threshold').value),d=new Uint8ClampedArray(original.data.length);for(let i=0;i<d.length;i+=4){const lum=.2126*original.data[i]+.7152*original.data[i+1]+.0722*original.data[i+2];d[i]=d[i+1]=d[i+2]=255;d[i+3]=Math.round(C.clamp((lum-threshold)/35,0,1)*255);}mx.putImageData(new ImageData(d,mask.width,mask.height),0,0);$('show-mask').checked=true;setMode('result');maskChanged();toast('Zaznaczono jasne miejsca. Gumką usuń zbędne fragmenty.');};
+  for(const value of ['result','before','compare'])$('view-'+value).onclick=()=>setMode(value);$('compare-slider').oninput=queueRender;
+  function changeSettings(){revision++;settings={hex:$('color-picker').value.toUpperCase(),strength:Number($('strength').value),brightness:Number($('brightness').value)};selected='';updateControls();queueRender();scheduleSave();}
+  $('color-picker').oninput=changeSettings;$('strength').oninput=changeSettings;$('brightness').oninput=changeSettings;
+  $('hex').onchange=()=>{let value=$('hex').value.trim();if(!value.startsWith('#'))value='#'+value;if(/^#[0-9a-f]{6}$/i.test(value)){$('color-picker').value=value;changeSettings();}else{$('hex').value=settings.hex;toast('Wpisz sześciocyfrowy kod HEX, np. #FFD2A1.');}};
+  $('save-preset').onclick=()=>{const name=$('preset-name').value.trim();if(!name){$('preset-name').focus();return toast('Nadaj nazwę ustawieniu, np. „Moja ciepła biel”.');}if(custom.length>=60)return toast('Maksymalnie 60 własnych ustawień.');const p={...settings,id:'custom-'+Date.now(),name,label:'Własny',group:'custom'};custom.push(p);selected=p.id;$('preset-name').value='';buildCustom();persistPalette();updateControls();scheduleSave();toast('Zapisano kolor, siłę i jasność: '+name);};
+  $('preset-name').onkeydown=e=>{if(e.key==='Enter')$('save-preset').click();};
+  $('export-palette').onclick=()=>jsonDownload({app:'led-studio',version:1,type:'palette',presets:custom},'led-studio-paleta.json');
+  $('import-palette').onclick=()=>$('palette-file').click();
+  $('palette-file').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>1024*1024)throw new Error('Plik palety jest za duży.');const value=JSON.parse(await file.text());if(value.app!=='led-studio'||value.version!==1||value.type!=='palette')throw new Error('To nie jest paleta LED Studio.');const imported=C.normalizePalette(value.presets);const merged=[...custom];for(const p of imported){if(!merged.some(v=>v.name===p.name&&v.hex===p.hex&&v.strength===p.strength&&v.brightness===p.brightness))merged.push({...p,id:'custom-import-'+Date.now()+'-'+merged.length});}if(merged.length>60)throw new Error('Po połączeniu paleta przekroczyłaby limit 60 ustawień.');custom=merged;buildCustom();persistPalette();updateControls();scheduleSave();toast('Wczytano paletę. Stałe próbki pozostają dostępne.');}catch(e){toast(e.message||'Nieprawidłowy plik palety.');}finally{e.target.value='';}};
+  $('upload').onclick=()=>$('image-file').click();$('image-file').onchange=e=>openPhoto(e.target.files[0]);$('demo').onclick=()=>{drawDemo();toast('Wczytano scenę przykładową.');};
+  for(const type of ['dragenter','dragover'])$('dropzone').addEventListener(type,e=>{e.preventDefault();$('dropzone').classList.add('dragover');});
+  $('dropzone').addEventListener('dragleave',()=>$('dropzone').classList.remove('dragover'));$('dropzone').addEventListener('drop',e=>{e.preventDefault();$('dropzone').classList.remove('dragover');openPhoto(e.dataTransfer.files[0]);});
+  function hasMask(){for(let i=3;i<maskData.data.length;i+=4)if(maskData.data[i])return true;return false;}
+  $('download').onclick=async()=>{if(!hasMask())return toast('Najpierw zaznacz obszar światła pędzlem.');try{render();download(await blobOf(result),safeName(fileName)+'-'+settings.hex.slice(1)+'.png');toast('Zdjęcie PNG jest gotowe.');}catch(e){toast(e.message);}};
+  $('download-all').onclick=async()=>{
+    if(busy)return;if(!hasMask())return toast('Najpierw zaznacz obszar światła pędzlem.');
+    busy=true;const button=$('download-all');button.disabled=true;const snapshotSource=new Uint8ClampedArray(original.data),snapshotMask=new Uint8ClampedArray(maskData.data),name=safeName(fileName),w=source.width,h=source.height;
+    try{const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;const c=canvas.getContext('2d'),files=[];for(let i=0;i<C.PRESETS.length;i++){const p=C.PRESETS[i];button.textContent=`Przygotowuję ${i+1} / ${C.PRESETS.length}…`;await new Promise(r=>setTimeout(r,20));c.putImageData(new ImageData(C.recolor(snapshotSource,snapshotMask,p),w,h),0,0);const blob=await blobOf(canvas);files.push({name:name+'-'+p.id+'.png',data:new Uint8Array(await blob.arrayBuffer())});}files.push({name:'ustawienia.json',data:new TextEncoder().encode(JSON.stringify({app:'led-studio',version:1,presets:C.PRESETS},null,2))});download(new Blob([C.zip(files)],{type:'application/zip'}),name+'-10-barw.zip');toast('Gotowe: 10 stałych barw i plik z ustawieniami.');}catch(e){toast(e.message||'Nie udało się utworzyć ZIP.');}finally{busy=false;button.disabled=false;button.textContent='Wszystkie stałe barwy · ZIP';}
+  };
+  function project(){return{app:'led-studio',version:1,type:'project',fileName,isDemo,width:source.width,height:source.height,source:source.toDataURL('image/png'),mask:mask.toDataURL('image/png'),settings:{...settings},selected,presets:custom.map(p=>({...p}))};}
+  $('save-project').onclick=()=>{jsonDownload(project(),safeName(fileName)+'.led-project.json');toast('Zapisano projekt ze zdjęciem i zaznaczeniem.');};
+  $('open-project').onclick=()=>$('project-file').click();
+  async function restoreProject(value){
+    if(!value||value.app!=='led-studio'||value.version!==1||value.type!=='project')throw new Error('To nie jest projekt LED Studio.');
+    if(!Number.isInteger(value.width)||!Number.isInteger(value.height)||value.width<1||value.height<1||value.width>MAX_SIDE||value.height>MAX_SIDE)throw new Error('Nieprawidłowe wymiary projektu.');
+    if(typeof value.source!=='string'||typeof value.mask!=='string'||!value.source.startsWith('data:image/png;base64,')||!value.mask.startsWith('data:image/png;base64,'))throw new Error('Projekt zawiera nieprawidłowe obrazy.');
+    const nextSettings=C.normalizeSettings(value.settings),nextPresets=C.normalizePalette(value.presets||[]);
+    const [image,maskImage]=await Promise.all([loadImage(value.source),loadImage(value.mask)]);
+    if(image.width!==value.width||image.height!==value.height||maskImage.width!==value.width||maskImage.height!==value.height)throw new Error('Wymiary zdjęcia i zaznaczenia nie pasują do projektu.');
+    setDimensions(value.width,value.height);sx.drawImage(image,0,0);mx.drawImage(maskImage,0,0);readPixels();settings=nextSettings;custom=nextPresets;selected=C.PRESETS.find(p=>p.id===value.selected)?.id||custom.find(p=>p.hex===settings.hex&&p.strength===settings.strength&&p.brightness===settings.brightness)?.id||'';fileName=String(value.fileName||'zdjecie-led').slice(0,200);isDemo=Boolean(value.isDemo);revision++;updateLabels();buildCustom();updateControls();persistPalette();setMode('result');
+  }
+  $('project-file').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>120*1024*1024)throw new Error('Plik projektu jest za duży.');const value=JSON.parse(await file.text());await restoreProject(value);scheduleSave();toast('Projekt odtworzony wraz z zaznaczeniem i barwami.');}catch(e){toast(e.message||'Nieprawidłowy plik projektu.');}finally{e.target.value='';}};
+  function requestIDB(request){return new Promise((resolve,reject)=>{request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);});}
+  function scheduleSave(){clearTimeout(saveTimer);status('Zapisuję na tym urządzeniu…');saveTimer=setTimeout(saveLast,850);}
+  async function saveLast(){if(!db){status('Zapisz projekt do pliku',false);return;}try{const value=project();await new Promise((resolve,reject)=>{const tx=db.transaction('projects','readwrite');tx.objectStore('projects').put(value,'last');tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error);});status('Zapisano na tym urządzeniu');}catch{status('Brak miejsca — zapisz projekt do pliku',false);}}
+  async function start(){
+    try{custom=C.normalizePalette(JSON.parse(localStorage.getItem('led-studio-palette-v1')||'[]'));}catch{custom=[];}
+    buildPresets();drawDemo();clearTimeout(saveTimer);
+    const startRevision=revision;
+    try{const request=indexedDB.open('led-studio-v1',1);request.onupgradeneeded=()=>request.result.createObjectStore('projects');db=await requestIDB(request);const last=await requestIDB(db.transaction('projects','readonly').objectStore('projects').get('last'));if(last&&revision===startRevision){clearTimeout(saveTimer);await restoreProject(last);status('Przywrócono ostatni projekt');}else scheduleSave();}catch{status('Zapis automatyczny niedostępny',false);}
+  }
+  $('help').onclick=()=>$('help-dialog').showModal();$('close-help').onclick=()=>$('help-dialog').close();$('help-dialog').onclick=e=>{if(e.target===$('help-dialog')){const r=e.target.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)e.target.close();}};
+  document.addEventListener('keydown',e=>{if(e.target.matches('input,textarea'))return;if((e.ctrlKey||e.metaKey)&&e.key==='z'){e.preventDefault();$('undo').click();}if(e.key==='b')setTool('brush');if(e.key==='e')setTool('erase');});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden&&db){clearTimeout(saveTimer);saveLast();}});
+  start();
+})();
+
+</script>
+</body>
+</html>
