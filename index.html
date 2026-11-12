@@ -14,6 +14,10 @@
 @media(max-width:900px){.workspace{grid-template-columns:220px 1fr}.editor{grid-column:2;grid-row:1}.right-panel{grid-column:1/-1;display:grid;grid-template-columns:1.5fr 1fr}.right-panel section+section{border-top:0;border-left:1px solid var(--line)}.white-presets{grid-template-columns:repeat(4,1fr)}.rgb-presets{justify-content:flex-start;gap:12px}.under-editor{grid-template-columns:1fr 1fr}.intro>p{max-width:260px}.topnote{display:none}.editor-top{height:38px}.rgb-preset .swatch{width:25px;height:25px}}
 @media(max-width:620px){.topbar{height:68px;padding:0 18px}.brand{font-size:21px}.brand-icon{width:32px;height:32px;font-size:22px}.topbar>.text-button{font-size:11px}main{padding:0 16px}.intro{margin:27px 0 20px;display:block}.intro>p{margin:15px 0 0;font-size:11px;max-width:none}.intro>p br{display:none}h1{font-size:35px}.eyebrow{font-size:9px;margin-bottom:10px}.workspace{display:flex;flex-direction:column;gap:14px}.panel,.editor{width:100%}.left-panel{display:grid;grid-template-columns:1fr 1fr}.left-panel section{padding:15px 12px}.left-panel section+section{border-top:0;border-left:1px solid var(--line)}.left-panel h2{font-size:12px;gap:6px;margin-bottom:12px}.left-panel .hint{font-size:10px}.saved-note{grid-column:1/-1}.auto-select{margin-top:12px}.upload{padding:17px 3px}.upload>span:last-child{font-size:8px}.range-label{font-size:10px}.check-row{font-size:10px;margin:15px 0}.button-row{gap:5px}.button-row button{font-size:9px;padding:8px 4px}.tools{margin-bottom:15px}.tools button{padding:7px 5px;font-size:10px}.stage{padding-top:12px;min-height:250px}.editor-top>span{display:block;font-size:8px}.editor-top{justify-content:space-between}.editor-bottom{font-size:9px}.under-editor{display:none}.right-panel{display:block}.right-panel section{padding:20px}.right-panel section+section{border-left:0;border-top:1px solid var(--line)}.rgb-presets{justify-content:space-between}.white-preset{display:block;padding:10px 6px;text-align:center}.white-preset .swatch{margin:0 auto 8px}.white-preset strong{font-size:11px}.white-preset small{font-size:9px}.custom-color{margin:20px 0}.custom-color input[type=text]{font-size:12px;width:100px}.section-label{font-size:10px}.right-panel .range-label{font-size:12px}.preset-save input{font-size:12px;padding:12px}.palette-actions button,.project-actions button{font-size:11px}.export-section .hint{font-size:10px}.primary{font-size:14px}.secondary{font-size:12px}.export-section h2{display:none}footer{display:block;margin-top:24px;font-size:9px}footer>span{display:block;margin-bottom:12px}.scene-caption{padding-top:15px}.toast{font-size:11px;width:90vw}dialog{padding:28px 24px}}
 
+/* Temperature-first workflow */
+#selection-mode{width:100%;border:1px solid var(--line);border-radius:6px;background:#fff;padding:10px 7px;font-size:11px;font-family:inherit;color:var(--ink);margin-top:6px}.detect-button{margin:17px 0 11px}.manual-correction{border-top:1px solid var(--line);padding-top:15px;font-size:10px;color:var(--muted)}.manual-correction summary{cursor:pointer;line-height:1.6}.manual-correction .hint{margin-top:13px}.kelvin-card{background:#fff3e9;border:1px solid #efd0b6;border-radius:9px;padding:15px;margin-bottom:23px}.kelvin-card>label{display:block;font-size:11px;font-weight:600;color:#7b563f}.kelvin-entry{display:flex;align-items:center;gap:7px;margin:8px 0 18px}.kelvin-entry input{width:100%;min-width:0;background:white;border:1px solid #e8c9b1;border-radius:6px;padding:9px;font-size:28px;color:#7d432a;font-weight:600}.kelvin-entry>span{color:#9a785f;font-size:19px}.kelvin-card input[type=range]{background:linear-gradient(90deg,#ff991d,#ffddb5,#fff,#bdd8ff);border-radius:4px;appearance:none;height:7px}.kelvin-card input[type=range]::-webkit-slider-thumb{appearance:none;width:16px;height:16px;background:#e96432;border:2px solid #fff;border-radius:50%;box-shadow:0 0 0 1px #daaa86}.kelvin-scale{display:flex;justify-content:space-between;font-size:9px;color:#a3856f;margin-top:7px}.kelvin-card p{font-size:10px;line-height:1.6;color:#96715b;margin:13px 0 0}#detection-status{font-size:10px}.kelvin-entry input:invalid{border-color:#c24b35}.manual-correction[open] .tools{margin-top:12px}
+@media(max-width:620px){.kelvin-card{padding:17px}.kelvin-entry input{font-size:30px}.kelvin-card p{font-size:11px}#selection-mode{font-size:10px}.detect-button{font-size:10px}.left-panel .selection-section .step{display:none}}
+
 </style>
 
 </head>
@@ -26,7 +30,7 @@
   <main>
     <section class="intro">
       <div><div class="eyebrow">PRACOWNIA KOLORU / 01</div><h1>Jedno zdjęcie.<br><span>Każda barwa światła.</span></h1></div>
-      <p>Zaznacz światło, wybierz kolor i zapisz efekt.<br>Twoje stałe barwy — gotowe przy każdej wizycie.</p>
+      <p>Wgraj zdjęcie i wpisz temperaturę w kelwinach.<br>Światło zmieni barwę od razu — bez malowania pędzlem.</p>
     </section>
     <div class="workspace">
       <aside class="panel left-panel" aria-label="Zdjęcie i zaznaczenie">
@@ -38,14 +42,22 @@
           <button id="demo" class="text-button small">Wczytaj scenę przykładową ↗</button>
         </section>
         <section class="selection-section">
-          <h2><span class="step">02</span> Obszar światła</h2>
-          <p class="hint">Pomaluj taśmę i jej poświatę. Tylko zaznaczony obszar zmieni kolor.</p>
+          <h2><span class="step">AUTO</span> Wykrywanie światła</h2>
+          <p class="hint">Po wgraniu zdjęcia automatycznie wybieramy jasne światło i poświatę.</p>
+          <label class="section-label" for="selection-mode">OBSZAR ZMIANY</label>
+          <select id="selection-mode"><option value="auto">Światło — automatycznie</option><option value="all">Całe zdjęcie</option><option value="manual">Moje zaznaczenie</option></select>
+          <div class="range-label"><label for="sensitivity">Zasięg wykrywania</label><output id="sensitivity-value">55%</output></div>
+          <input id="sensitivity" type="range" min="0" max="100" value="55">
+          <button id="auto-mask" class="secondary full detect-button">Wykryj światło ponownie</button>
+          <p id="detection-status" class="hint" role="status">Automatyczne wykrywanie jest włączone.</p>
+          <details class="manual-correction"><summary>Popraw obszar ręcznie (opcjonalnie)</summary>
+          <p class="hint">Przy jasnym tle automat może objąć inne elementy. Usuń je gumką lub dodaj światło pędzlem.</p>
           <div class="segmented tools" aria-label="Narzędzia zaznaczenia"><button id="brush" aria-pressed="true">◌ Pędzel</button><button id="erase" aria-pressed="false">▱ Gumka</button></div>
           <div class="range-label"><label for="brush-size">Rozmiar pędzla</label><output id="brush-value">80 px</output></div>
           <input id="brush-size" type="range" min="8" max="400" value="80">
           <div class="check-row"><input id="show-mask" type="checkbox"><label for="show-mask">Pokaż zaznaczenie</label><span class="mask-key"></span></div>
           <div class="button-row"><button id="undo" class="secondary small" disabled>↶ Cofnij</button><button id="clear-mask" class="secondary small">Wyczyść</button></div>
-          <details class="auto-select"><summary>Szybkie zaznaczenie jasnego światła</summary><label for="threshold" class="range-label">Próg jasności <output id="threshold-value">150</output></label><input id="threshold" type="range" min="30" max="245" value="150"><button id="auto-mask" class="secondary full">Zaznacz jasne obszary</button><p class="hint">Obejmuje też inne jasne elementy. Usuń je gumką. Zastępuje obecne zaznaczenie.</p></details>
+          </details>
         </section>
         <div class="saved-note"><span id="save-dot" class="status-dot"></span><span id="save-status" role="status">Przygotowuję pracownię…</span></div>
       </aside>
@@ -56,12 +68,13 @@
           <div class="scene-caption"><span id="preview-badge">3000 K · Ciepła biel</span><span id="dimensions">1200 × 800 px</span></div>
         </div>
         <div id="compare-controls" class="compare-controls" hidden><label for="compare-slider">Oryginał</label><input id="compare-slider" type="range" min="0" max="100" value="50"><span>Efekt</span></div>
-        <div class="editor-bottom"><span id="editor-hint">Zaznaczenie przykładowe jest gotowe. Wybierz barwę po prawej.</span><span class="live"><i></i> Podgląd na żywo</span></div>
+        <div class="editor-bottom"><span id="editor-hint">Wpisz temperaturę w kelwinach po prawej. Efekt zmieni się od razu.</span><span class="live"><i></i> Podgląd na żywo</span></div>
         <div class="under-editor"><div><span class="mini-icon">↗</span><strong>Powtarzalny efekt</strong><p>Stałe wartości kolorów i zapisane ustawienia.</p></div><div><span class="mini-icon">▧</span><strong>Oryginał pod ręką</strong><p>Porównuj i wracaj do zdjęcia źródłowego.</p></div></div>
       </section>
       <aside class="panel right-panel" aria-label="Barwy i eksport">
         <section>
-          <h2><span class="step">03</span> Wybierz barwę</h2>
+          <h2><span class="step">02</span> Ustaw temperaturę</h2>
+          <div class="kelvin-card"><label for="kelvin">Temperatura światła (K)</label><div class="kelvin-entry"><input id="kelvin" type="number" min="1000" max="12000" step="1" value="3000" inputmode="numeric" aria-describedby="kelvin-hint"><span>K</span></div><input id="kelvin-slider" type="range" min="1000" max="12000" step="50" value="3000" aria-label="Suwak temperatury światła"><div class="kelvin-scale"><span>Ciepłe</span><span>Zimne</span></div><p id="kelvin-hint">Wpisz np. 2700, 4000 lub 6500. Efekt zmienia się na żywo.</p></div>
           <div class="section-label">STAŁA PALETA BIELI</div><div id="white-presets" class="white-presets"></div>
           <div class="section-label rgb-label">KOLORY RGB</div><div id="rgb-presets" class="rgb-presets"></div>
           <div class="custom-color"><label for="color-picker">Własny kolor</label><div><input id="color-picker" type="color" value="#ffd2a1" aria-label="Wybierz własny kolor"><input id="hex" type="text" value="#FFD2A1" maxlength="7" spellcheck="false" aria-label="Kod koloru HEX"></div></div>
@@ -71,18 +84,29 @@
           <div id="custom-presets" class="custom-presets"></div>
           <div class="palette-actions"><button id="export-palette" class="text-button small">Zapisz paletę</button><button id="import-palette" class="text-button small">Wczytaj paletę</button></div><input id="palette-file" type="file" accept="application/json,.json" hidden>
         </section>
-        <section class="export-section"><h2><span class="step">04</span> Zapisz efekt</h2><button id="download" class="primary full">Pobierz zdjęcie PNG <span>↓</span></button><button id="download-all" class="secondary full">Wszystkie stałe barwy · ZIP</button><div class="project-actions"><button id="save-project" class="text-button small">Zapisz projekt</button><button id="open-project" class="text-button small">Otwórz projekt</button></div><input id="project-file" type="file" accept="application/json,.json" hidden><p class="hint">Projekt zachowuje zdjęcie, zaznaczenie i ustawienia. Paleta przenosi kolory między urządzeniami.</p></section>
+        <section class="export-section"><h2><span class="step">03</span> Zapisz efekt</h2><button id="download" class="primary full">Pobierz zdjęcie PNG <span>↓</span></button><button id="download-all" class="secondary full">Wszystkie stałe barwy · ZIP</button><div class="project-actions"><button id="save-project" class="text-button small">Zapisz projekt</button><button id="open-project" class="text-button small">Otwórz projekt</button></div><input id="project-file" type="file" accept="application/json,.json" hidden><p class="hint">Projekt zachowuje zdjęcie, zaznaczenie i ustawienia. Paleta przenosi kolory między urządzeniami.</p></section>
       </aside>
     </div>
-    <footer><span>LED STUDIO <span class="footer-dot">/</span> PRACOWNIA TWOJEGO ŚWIATŁA</span><span>Barwy na zdjęciu są wizualizacją, nie pomiarem temperatury światła.</span></footer>
+    <footer><span>LED STUDIO 2 <span class="footer-dot">/</span> PRACOWNIA TWOJEGO ŚWIATŁA</span><span>Barwy na zdjęciu są wizualizacją, nie pomiarem temperatury światła.</span></footer>
   </main>
   <div id="toast" class="toast" role="status" hidden></div>
-  <dialog id="help-dialog"><button id="close-help" class="close" aria-label="Zamknij instrukcję">×</button><div class="eyebrow">OD ZDJĘCIA DO NOWEJ BARWY</div><h2>Twój stały zestaw światła.</h2><ol><li><strong>Wgraj zdjęcie.</strong> Najlepiej użyć zdjęcia z widoczną poświatą i bez mocno przepalonego światła.</li><li><strong>Zaznacz światło pędzlem.</strong> Uwzględnij taśmę i odbicia światła. Gumką usuń zaznaczenie z otoczenia. Możesz też zacząć od jasnych obszarów.</li><li><strong>Wybierz kolor.</strong> Stałe próbki przywracają ten sam HEX, siłę i jasność. Własne ustawienie zapisz przyciskiem +.</li><li><strong>Pobierz PNG lub zestaw ZIP.</strong> Zapisz projekt, aby odtworzyć zdjęcie z identycznym zaznaczeniem. Paletę możesz przenieść na inny komputer.</li></ol><p>Ostatni projekt i własne próbki zapisują się w tej przeglądarce, jeśli pozwala na to jej pamięć. Wyczyszczenie danych przeglądarki usuwa ten zapis — pobierz projekt jako kopię.</p><p>Te same ustawienia i ten sam projekt dają ten sam efekt. Różne zdjęcia, ekspozycje i ekrany mogą wyglądać inaczej. Oznaczenia K są orientacyjnymi próbkami wizualnymi. Duże zdjęcia zmniejszamy do 3200 px na dłuższym boku.</p></dialog>
+  <dialog id="help-dialog"><button id="close-help" class="close" aria-label="Zamknij instrukcję">×</button><div class="eyebrow">OD ZDJĘCIA DO NOWEJ BARWY</div><h2>Twój stały zestaw światła.</h2><ol><li><strong>Wgraj zdjęcie.</strong> Najlepiej użyć zdjęcia z widoczną poświatą i bez mocno przepalonego światła.</li><li><strong>Wpisz docelową temperaturę w K.</strong> Na przykład 2700 K daje ciepłą barwę, a 6500 K chłodniejszą. Podgląd aktualizuje się automatycznie.</li><li><strong>Dopasuj obszar w razie potrzeby.</strong> Jasne światło i poświata są wybierane automatycznie. Przy białym tle automat może objąć inne elementy: zmień zasięg lub użyj opcjonalnej gumki. Możesz też wybrać RGB i zapisać własne ustawienie przyciskiem +.</li><li><strong>Pobierz PNG lub zestaw ZIP.</strong> Zapisz projekt, aby odtworzyć zdjęcie z identycznym zaznaczeniem. Paletę możesz przenieść na inny komputer.</li></ol><p>Ostatni projekt i własne próbki zapisują się w tej przeglądarce, jeśli pozwala na to jej pamięć. Wyczyszczenie danych przeglądarki usuwa ten zapis — pobierz projekt jako kopię.</p><p>Te same ustawienia i ten sam projekt dają ten sam efekt. Różne zdjęcia, ekspozycje i ekrany mogą wyglądać inaczej. Oznaczenia K są orientacyjnymi próbkami wizualnymi. Duże zdjęcia zmniejszamy do 3200 px na dłuższym boku.</p></dialog>
 <script>
 /* Deterministic color engine. No network, randomness, or dependencies. */
 (function (root) {
   'use strict';
   const clamp = (n, low, high) => Math.max(low, Math.min(high, n));
+  // Photographic approximation by Tanner Helland (2012), not a spectral measurement.
+  // https://tannerhelland.com/2012/09/18/convert-temperature-rgb-algorithm-code.html
+  function kelvinToHex(kelvin) {
+    const k=Number(kelvin);
+    if(!Number.isFinite(k)||k<1000||k>12000)throw new Error('Wpisz temperaturę od 1000 do 12000 K.');
+    const t=k/100;
+    const r=t<=66?255:329.698727446*Math.pow(t-60,-.1332047592);
+    const g=t<=66?99.4708025861*Math.log(t)-161.1195681661:288.1221695283*Math.pow(t-60,-.0755148492);
+    const b=t>=66?255:t<=19?0:138.5177312231*Math.log(t-10)-305.0447927307;
+    return '#'+[r,g,b].map(v=>Math.round(clamp(v,0,255)).toString(16).padStart(2,'0')).join('').toUpperCase();
+  }
   const PRESETS = [
     {id:'warm2700',name:'Bardzo ciepła',label:'2700 K',hex:'#FFB46B',strength:100,brightness:100,group:'white'},
     {id:'warm3000',name:'Ciepła biel',label:'3000 K',hex:'#FFD2A1',strength:100,brightness:100,group:'white'},
@@ -95,10 +119,43 @@
     {id:'blue',name:'Niebieski',label:'RGB',hex:'#397CFF',strength:100,brightness:100,group:'rgb'},
     {id:'purple',name:'Fioletowy',label:'RGB',hex:'#B166FF',strength:100,brightness:100,group:'rgb'}
   ];
+  PRESETS.filter(p=>p.group==='white').forEach(p=>{p.kelvin=Number.parseInt(p.label,10);p.hex=kelvinToHex(p.kelvin);});
   function normalizeSettings(value) {
     if(!value || !/^#[0-9a-f]{6}$/i.test(value.hex)) throw new Error('Nieprawidłowy kolor HEX.');
     if(!Number.isFinite(Number(value.strength)) || !Number.isFinite(Number(value.brightness))) throw new Error('Nieprawidłowe ustawienia światła.');
-    return {hex:value.hex.toUpperCase(),strength:clamp(Number(value.strength),0,100),brightness:clamp(Number(value.brightness),20,150)};
+    const kelvin=value.kelvin==null?null:Number(value.kelvin);
+    return {hex:kelvin==null?value.hex.toUpperCase():kelvinToHex(kelvin),kelvin,strength:clamp(Number(value.strength),0,100),brightness:clamp(Number(value.brightness),20,150)};
+  }
+  function detectLightMask(source,width,height,sensitivity=55) {
+    if(source.length!==width*height*4)throw new Error('Nieprawidłowe wymiary obrazu.');
+    const n=width*height,v=new Float32Array(n),hist=new Uint32Array(256),integral=new Float64Array((width+1)*(height+1));
+    let visible=0,white=0,max=0;
+    for(let p=0;p<n;p++){const i=p*4;v[p]=Math.max(source[i],source[i+1],source[i+2]);if(source[i+3]){hist[Math.round(v[p])]++;visible++;max=Math.max(max,v[p]);if(v[p]>230&&(v[p]-Math.min(source[i],source[i+1],source[i+2]))<22)white++;}}
+    const out=new Uint8ClampedArray(source.length);
+    if(!visible||max<3)return {data:out,coverage:0,fallback:false};
+    let sum=0,q98=max;for(let i=0;i<256;i++){sum+=hist[i];if(sum>=visible*.98){q98=i;break;}}
+    const pitch=width+1;
+    for(let y=0;y<height;y++){let row=0;for(let x=0;x<width;x++){row+=v[y*width+x];integral[(y+1)*pitch+x+1]=integral[y*pitch+x+1]+row;}}
+    const whiteBackground=white/visible>.22,s=clamp(Number(sensitivity)||55,0,100)/100;
+    const floor=Math.max(20,Math.min(max*.78,Math.max(q98*.65,max*.42)))*(1.25-s*.65);
+    const radius=Math.max(3,Math.round(Math.min(width,height)*.035));
+    let coverage=0;
+    for(let y=0;y<height;y++)for(let x=0;x<width;x++){
+      const p=y*width+x,i=p*4,bright=v[p];if(!source[i+3]||bright<floor)continue;
+      const x0=Math.max(0,x-radius),x1=Math.min(width,x+radius+1),y0=Math.max(0,y-radius),y1=Math.min(height,y+radius+1);
+      const mean=(integral[y1*pitch+x1]-integral[y0*pitch+x1]-integral[y1*pitch+x0]+integral[y0*pitch+x0])/((x1-x0)*(y1-y0));
+      const saturation=(bright-Math.min(source[i],source[i+1],source[i+2]))/Math.max(1,bright);
+      const brightness=clamp((bright-floor)/Math.max(15,max-floor),0,1);
+      const contrast=clamp((bright-mean-3)/Math.max(12,max*.14),0,1);
+      const tint=clamp((saturation-.06)*5,0,1);
+      const evidence=whiteBackground?Math.max(contrast*.8,tint):Math.max(brightness*.85,contrast,tint*brightness);
+      const alpha=Math.round(255*clamp(brightness*evidence*(1.25+s),0,1));
+      out[i]=out[i+1]=out[i+2]=255;out[i+3]=alpha;if(alpha>20)coverage++;
+    }
+    let fallback=false;
+    // Never silently leave a nonblack uploaded photo with an empty selection.
+    if(coverage===0){fallback=true;for(let p=0;p<n;p++){const i=p*4;if(source[i+3]&&v[p]>=max*.82){out[i]=out[i+1]=out[i+2]=255;out[i+3]=Math.round(clamp((v[p]/max-.7)/.3,0,1)*255);coverage++;}}}
+    return {data:out,coverage:coverage/visible,fallback};
   }
   function recolor(source, mask, settings, destination) {
     const s=normalizeSettings(settings), out=destination || new Uint8ClampedArray(source.length);
@@ -140,7 +197,7 @@
     const end=new Uint8Array(22),ev=new DataView(end.buffer);ev.setUint32(0,0x06054b50,true);ev.setUint16(8,files.length,true);ev.setUint16(10,files.length,true);ev.setUint32(12,centralSize,true);ev.setUint32(16,offset,true);
     const result=new Uint8Array(offset+centralSize+22);let pos=0;for(const a of [...chunks,...central,end]){result.set(a,pos);pos+=a.length;}return result;
   }
-  const API={PRESETS,normalizeSettings,normalizePalette,recolor,zip,crc32,clamp};
+  const API={PRESETS,kelvinToHex,detectLightMask,normalizeSettings,normalizePalette,recolor,zip,crc32,clamp};
   if(typeof module==='object'&&module.exports)module.exports=API;else root.LEDCore=API;
 })(typeof window!=='undefined'?window:globalThis);
 
@@ -150,9 +207,10 @@
   const photo=$('photo'), overlay=$('overlay'), ctx=photo.getContext('2d'), ox=overlay.getContext('2d');
   const source=document.createElement('canvas'), mask=document.createElement('canvas'), result=document.createElement('canvas');
   const sx=source.getContext('2d',{willReadFrequently:true}), mx=mask.getContext('2d',{willReadFrequently:true}), rx=result.getContext('2d');
-  let original=null, maskData=null, settings={hex:'#FFD2A1',strength:100,brightness:100};
+  let original=null, maskData=null, settings=C.normalizeSettings({...C.PRESETS.find(p=>p.id==='warm3000')});
   let custom=[], selected='warm3000', fileName='scena-przykladowa', isDemo=true, mode='result', tool='brush', history=[];
   let drawing=false,lastPoint=null,renderQueued=false,saveTimer=null,toastTimer=null,db=null,revision=0,busy=false;
+  let selectionMode='auto',detectionSensitivity=55;
   const MAX_SIDE=3200, MAX_BYTES=30*1024*1024;
   function toast(message){$('toast').textContent=message;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,4300);}
   function status(message,ok=true){$('save-status').textContent=message;$('save-dot').style.background=ok?'#74907b':'#d99543';}
@@ -177,13 +235,17 @@
     if($('show-mask').checked&&mode==='result'){ox.drawImage(mask,0,0);ox.globalCompositeOperation='source-in';ox.fillStyle='rgba(45,220,173,.46)';ox.fillRect(0,0,overlay.width,overlay.height);ox.globalCompositeOperation='source-over';}
   }
   function updateControls(){
+    $('kelvin').value=settings.kelvin==null?'':settings.kelvin;
+    $('kelvin').placeholder=settings.kelvin==null?'RGB':'';
+    if(settings.kelvin!=null)$('kelvin-slider').value=settings.kelvin;
+    $('kelvin-hint').textContent=settings.kelvin==null?'Wybrano kolor RGB. Wpisz temperaturę, aby wrócić do białego światła.':'Wpisz np. 2700, 4000 lub 6500. Efekt zmienia się na żywo.';
     $('color-picker').value=settings.hex;$('hex').value=settings.hex;$('strength').value=settings.strength;$('brightness').value=settings.brightness;
     $('strength-value').textContent=settings.strength+'%';$('brightness-value').textContent=settings.brightness+'%';
     document.querySelectorAll('[data-preset]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.preset===selected)));
     const preset=[...C.PRESETS,...custom].find(p=>p.id===selected);
-    $('preview-badge').textContent=preset?(preset.group==='white'?preset.label+' · ':'')+preset.name:settings.hex+' · Własny kolor';
+    $('preview-badge').textContent=settings.kelvin!=null?settings.kelvin+' K · '+(settings.kelvin<3500?'Ciepłe światło':settings.kelvin<5000?'Neutralne światło':'Zimne światło'):preset?(preset.group==='white'?preset.label+' · ':'')+preset.name:settings.hex+' · Własny kolor';
   }
-  function applyPreset(p){revision++;settings=C.normalizeSettings(p);selected=p.id;updateControls();queueRender();scheduleSave();}
+  function applyPreset(p){revision++;settings=C.normalizeSettings(p);selected=p.id;ensureLightSelection();updateControls();setMode('result');scheduleSave();}
   function buildPresets(){
     for(const group of ['white','rgb']){
       const holder=$(group+'-presets');holder.replaceChildren();
@@ -196,7 +258,23 @@
     custom.forEach(p=>{const row=document.createElement('div');row.className='custom-preset';const b=document.createElement('button'),sw=document.createElement('span'),name=document.createElement('span'),del=document.createElement('button');sw.className='swatch';sw.style.background=p.hex;name.textContent=p.name;b.dataset.preset=p.id;b.append(sw,name);b.onclick=()=>applyPreset(p);del.className='delete';del.textContent='×';del.setAttribute('aria-label','Usuń ustawienie '+p.name);del.onclick=()=>{custom=custom.filter(v=>v.id!==p.id);if(selected===p.id)selected='';buildCustom();persistPalette();updateControls();scheduleSave();};row.append(b,del);$('custom-presets').append(row);});
   }
   function persistPalette(){try{localStorage.setItem('led-studio-palette-v1',JSON.stringify(custom));}catch{toast('Pamięć przeglądarki niedostępna. Zapisz paletę do pliku.');}}
-  function updateLabels(){ $('filename').textContent=isDemo?'Scena przykładowa':fileName;$('scene-label').textContent=isDemo?'SCENA PRZYKŁADOWA':'TWOJE ZDJĘCIE';$('editor-hint').textContent=isDemo?'Zaznaczenie przykładowe jest gotowe. Wybierz barwę po prawej.':'Pomaluj pędzlem taśmę i poświatę. Dopasuj zaznaczenie gumką.'; }
+  function selectionUI(message){
+    $('selection-mode').value=selectionMode;$('sensitivity').value=detectionSensitivity;$('sensitivity-value').textContent=detectionSensitivity+'%';
+    $('detection-status').textContent=message||({auto:'Światło wybrane automatycznie. Możesz dopasować zasięg.',manual:'Używasz własnego zaznaczenia.',all:'Zmiana obejmuje całe zdjęcie.'}[selectionMode]);
+  }
+  function autoDetect(){
+    if(!original)return;
+    const small=document.createElement('canvas'),ratio=Math.min(1,800/Math.max(source.width,source.height));
+    small.width=Math.max(1,Math.round(source.width*ratio));small.height=Math.max(1,Math.round(source.height*ratio));
+    const sc=small.getContext('2d',{willReadFrequently:true});sc.drawImage(source,0,0,small.width,small.height);
+    const detection=C.detectLightMask(sc.getImageData(0,0,small.width,small.height).data,small.width,small.height,detectionSensitivity);
+    sc.putImageData(new ImageData(detection.data,small.width,small.height),0,0);
+    mx.clearRect(0,0,mask.width,mask.height);mx.save();mx.globalAlpha=.55;mx.filter='blur('+Math.max(2,5/ratio)+'px)';mx.drawImage(small,0,0,mask.width,mask.height);mx.restore();mx.drawImage(small,0,0,mask.width,mask.height);
+    readMask();selectionMode='auto';selectionUI(detection.coverage===0?'Zdjęcie jest czarne lub przezroczyste — nie ma widocznego światła.':detection.fallback?'Wybrano najjaśniejsze obszary. Jeśli efekt obejmuje tło, popraw zaznaczenie.':undefined);
+    queueRender();
+  }
+  function ensureLightSelection(){if(original&&!hasMask())autoDetect();}
+  function updateLabels(){ $('filename').textContent=isDemo?'Scena przykładowa':fileName;$('scene-label').textContent=isDemo?'SCENA PRZYKŁADOWA':'TWOJE ZDJĘCIE';$('editor-hint').textContent='Wpisz temperaturę światła w K. Zmiana barwy pojawi się automatycznie.'; }
   function drawDemo(){
     setDimensions(1200,800);const w=1200,h=800;
     // An original illustrated interior, used only as an interactive sample.
@@ -215,18 +293,18 @@
     sx.strokeStyle='#39452e';sx.lineWidth=4;sx.beginPath();sx.moveTo(330,545);sx.lineTo(322,465);sx.moveTo(333,540);sx.lineTo(353,480);sx.stroke();for(const [x,y,a] of [[318,490,-.6],[337,509,.5],[351,480,-.6],[319,467,.3]]){sx.fillStyle='#687e4c';sx.beginPath();sx.ellipse(x,y,8,21,a,0,Math.PI*2);sx.fill();}
     sx.fillStyle='#252f28';sx.fillRect(985,564,51,35);sx.fillStyle='#78836b';sx.fillRect(983,560,55,6);
     const glow=mx.createLinearGradient(0,373,0,607);glow.addColorStop(0,'rgba(255,255,255,0)');glow.addColorStop(.06,'white');glow.addColorStop(.2,'rgba(255,255,255,.9)');glow.addColorStop(1,'rgba(255,255,255,0)');mx.fillStyle=glow;mx.fillRect(94,373,1012,234);
-    isDemo=true;fileName='scena-przykladowa';readPixels();updateLabels();setMode('result');revision++;scheduleSave();
+    isDemo=true;fileName='scena-przykladowa';readPixels();autoDetect();updateLabels();setMode('result');revision++;scheduleSave();
   }
   async function openPhoto(file){
     if(!file)return;if(!/^image\/(jpeg|png|webp)$/.test(file.type))return toast('Wybierz zdjęcie JPG, PNG lub WebP.');if(file.size>MAX_BYTES)return toast('Zdjęcie jest za duże. Maksymalnie 30 MB.');
     const url=URL.createObjectURL(file);
-    try{const image=await loadImage(url);if(image.width*image.height>100000000)throw new Error('Zdjęcie ma za dużo pikseli. Zmniejsz je przed wgraniem.');const ratio=Math.min(1,MAX_SIDE/Math.max(image.width,image.height));setDimensions(Math.max(1,Math.round(image.width*ratio)),Math.max(1,Math.round(image.height*ratio)));sx.drawImage(image,0,0,source.width,source.height);readPixels();fileName=file.name;isDemo=false;revision++;updateLabels();setMode('result');scheduleSave();toast(ratio<1?'Wgrano zdjęcie. Zmniejszono je do 3200 px. Zaznacz światło pędzlem.':'Zdjęcie gotowe. Pomaluj pędzlem obszar światła.');}catch(e){toast(e.message);}finally{URL.revokeObjectURL(url);$('image-file').value='';}
+    try{const image=await loadImage(url);if(image.width*image.height>100000000)throw new Error('Zdjęcie ma za dużo pikseli. Zmniejsz je przed wgraniem.');const ratio=Math.min(1,MAX_SIDE/Math.max(image.width,image.height));setDimensions(Math.max(1,Math.round(image.width*ratio)),Math.max(1,Math.round(image.height*ratio)));sx.drawImage(image,0,0,source.width,source.height);readPixels();autoDetect();fileName=file.name;isDemo=false;revision++;updateLabels();setMode('result');scheduleSave();toast(ratio<1?'Wgrano zdjęcie (do 3200 px) i wykryto światło. Wpisz docelową temperaturę w K.':'Wykryto światło. Wpisz docelową temperaturę w K — efekt już jest aktywny.');}catch(e){toast(e.message);}finally{URL.revokeObjectURL(url);$('image-file').value='';}
   }
   function point(event){const r=overlay.getBoundingClientRect();return{x:(event.clientX-r.left)*overlay.width/r.width,y:(event.clientY-r.top)*overlay.height/r.height};}
   function cursor(event){const rect=overlay.getBoundingClientRect(),size=Number($('brush-size').value)*rect.width/overlay.width;$('brush-cursor').style.width=size+'px';$('brush-cursor').style.height=size+'px';$('brush-cursor').style.left=(event.clientX-rect.left)+'px';$('brush-cursor').style.top=(event.clientY-rect.top)+'px';$('brush-cursor').hidden=mode!=='result'||event.pointerType==='touch';}
   function stamp(x,y){const radius=Number($('brush-size').value)/2,g=mx.createRadialGradient(x,y,radius*.5,x,y,radius);g.addColorStop(0,'rgba(255,255,255,1)');g.addColorStop(1,'rgba(255,255,255,0)');mx.globalCompositeOperation=tool==='erase'?'destination-out':'source-over';mx.fillStyle=g;mx.fillRect(x-radius,y-radius,radius*2,radius*2);mx.globalCompositeOperation='source-over';}
   function stroke(from,to){const distance=Math.hypot(to.x-from.x,to.y-from.y),steps=Math.max(1,Math.ceil(distance/(Number($('brush-size').value)*.15)));for(let i=1;i<=steps;i++){const t=i/steps;stamp(from.x+(to.x-from.x)*t,from.y+(to.y-from.y)*t);}readMask();queueRender();}
-  overlay.addEventListener('pointerdown',e=>{if(mode!=='result'||busy)return;e.preventDefault();remember();drawing=true;overlay.setPointerCapture(e.pointerId);lastPoint=point(e);stamp(lastPoint.x,lastPoint.y);readMask();queueRender();cursor(e);});
+  overlay.addEventListener('pointerdown',e=>{if(mode!=='result'||busy)return;e.preventDefault();selectionMode='manual';selectionUI();remember();drawing=true;overlay.setPointerCapture(e.pointerId);lastPoint=point(e);stamp(lastPoint.x,lastPoint.y);readMask();queueRender();cursor(e);});
   overlay.addEventListener('pointermove',e=>{cursor(e);if(drawing){const p=point(e);stroke(lastPoint,p);lastPoint=p;}});
   function endStroke(){if(!drawing)return;drawing=false;lastPoint=null;maskChanged();}
   overlay.addEventListener('pointerup',endStroke);overlay.addEventListener('pointercancel',endStroke);overlay.addEventListener('lostpointercapture',endStroke);overlay.addEventListener('pointerleave',()=>$('brush-cursor').hidden=true);
@@ -234,12 +312,20 @@
   $('brush').onclick=()=>setTool('brush');$('erase').onclick=()=>setTool('erase');
   $('brush-size').oninput=()=>$('brush-value').textContent=$('brush-size').value+' px';$('show-mask').onchange=queueRender;
   $('undo').onclick=()=>{if(!history.length)return;mx.putImageData(new ImageData(history.pop(),mask.width,mask.height),0,0);$('undo').disabled=!history.length;maskChanged();};
-  $('clear-mask').onclick=()=>{remember();mx.clearRect(0,0,mask.width,mask.height);maskChanged();toast('Zaznaczenie wyczyszczone. Możesz je cofnąć.');};
-  $('threshold').oninput=()=>$('threshold-value').textContent=$('threshold').value;
-  $('auto-mask').onclick=()=>{remember();const threshold=Number($('threshold').value),d=new Uint8ClampedArray(original.data.length);for(let i=0;i<d.length;i+=4){const lum=.2126*original.data[i]+.7152*original.data[i+1]+.0722*original.data[i+2];d[i]=d[i+1]=d[i+2]=255;d[i+3]=Math.round(C.clamp((lum-threshold)/35,0,1)*255);}mx.putImageData(new ImageData(d,mask.width,mask.height),0,0);$('show-mask').checked=true;setMode('result');maskChanged();toast('Zaznaczono jasne miejsca. Gumką usuń zbędne fragmenty.');};
+  $('clear-mask').onclick=()=>{remember();selectionMode='manual';selectionUI();mx.clearRect(0,0,mask.width,mask.height);maskChanged();toast('Zaznaczenie wyczyszczone. Możesz je cofnąć.');};
+  $('auto-mask').onclick=()=>{remember();autoDetect();revision++;setMode('result');scheduleSave();toast('Światło wykryte ponownie. Wpisz temperaturę w K.');};
+  $('sensitivity').oninput=()=>{detectionSensitivity=Number($('sensitivity').value);autoDetect();revision++;setMode('result');scheduleSave();};
+  $('selection-mode').onchange=()=>{remember();selectionMode=$('selection-mode').value;if(selectionMode==='auto')autoDetect();else if(selectionMode==='all'){mx.fillStyle='white';mx.fillRect(0,0,mask.width,mask.height);readMask();}selectionUI();revision++;setMode('result');scheduleSave();};
+  function changeKelvin(value){
+    const kelvin=Number(value);if(!Number.isFinite(kelvin)||kelvin<1000||kelvin>12000)return false;
+    settings={...settings,kelvin,hex:C.kelvinToHex(kelvin)};selected=C.PRESETS.find(p=>p.kelvin===kelvin)?.id||'';revision++;ensureLightSelection();updateControls();setMode('result');scheduleSave();return true;
+  }
+  $('kelvin').oninput=()=>changeKelvin($('kelvin').value);
+  $('kelvin').onchange=()=>{if(!changeKelvin($('kelvin').value)){updateControls();toast('Wpisz temperaturę od 1000 do 12000 K.');}};
+  $('kelvin-slider').oninput=()=>changeKelvin($('kelvin-slider').value);
   for(const value of ['result','before','compare'])$('view-'+value).onclick=()=>setMode(value);$('compare-slider').oninput=queueRender;
-  function changeSettings(){revision++;settings={hex:$('color-picker').value.toUpperCase(),strength:Number($('strength').value),brightness:Number($('brightness').value)};selected='';updateControls();queueRender();scheduleSave();}
-  $('color-picker').oninput=changeSettings;$('strength').oninput=changeSettings;$('brightness').oninput=changeSettings;
+  function changeSettings(keepKelvin=false){revision++;settings={hex:$('color-picker').value.toUpperCase(),kelvin:keepKelvin?settings.kelvin:null,strength:Number($('strength').value),brightness:Number($('brightness').value)};selected='';ensureLightSelection();updateControls();setMode('result');scheduleSave();}
+  $('color-picker').oninput=()=>changeSettings();$('strength').oninput=()=>changeSettings(true);$('brightness').oninput=()=>changeSettings(true);
   $('hex').onchange=()=>{let value=$('hex').value.trim();if(!value.startsWith('#'))value='#'+value;if(/^#[0-9a-f]{6}$/i.test(value)){$('color-picker').value=value;changeSettings();}else{$('hex').value=settings.hex;toast('Wpisz sześciocyfrowy kod HEX, np. #FFD2A1.');}};
   $('save-preset').onclick=()=>{const name=$('preset-name').value.trim();if(!name){$('preset-name').focus();return toast('Nadaj nazwę ustawieniu, np. „Moja ciepła biel”.');}if(custom.length>=60)return toast('Maksymalnie 60 własnych ustawień.');const p={...settings,id:'custom-'+Date.now(),name,label:'Własny',group:'custom'};custom.push(p);selected=p.id;$('preset-name').value='';buildCustom();persistPalette();updateControls();scheduleSave();toast('Zapisano kolor, siłę i jasność: '+name);};
   $('preset-name').onkeydown=e=>{if(e.key==='Enter')$('save-preset').click();};
@@ -250,13 +336,13 @@
   for(const type of ['dragenter','dragover'])$('dropzone').addEventListener(type,e=>{e.preventDefault();$('dropzone').classList.add('dragover');});
   $('dropzone').addEventListener('dragleave',()=>$('dropzone').classList.remove('dragover'));$('dropzone').addEventListener('drop',e=>{e.preventDefault();$('dropzone').classList.remove('dragover');openPhoto(e.dataTransfer.files[0]);});
   function hasMask(){for(let i=3;i<maskData.data.length;i+=4)if(maskData.data[i])return true;return false;}
-  $('download').onclick=async()=>{if(!hasMask())return toast('Najpierw zaznacz obszar światła pędzlem.');try{render();download(await blobOf(result),safeName(fileName)+'-'+settings.hex.slice(1)+'.png');toast('Zdjęcie PNG jest gotowe.');}catch(e){toast(e.message);}};
+  $('download').onclick=async()=>{if(!hasMask())return toast('Najpierw zaznacz obszar światła pędzlem.');try{render();download(await blobOf(result),safeName(fileName)+'-'+(settings.kelvin!=null?settings.kelvin+'K':settings.hex.slice(1))+'.png');toast('Zdjęcie PNG jest gotowe.');}catch(e){toast(e.message);}};
   $('download-all').onclick=async()=>{
     if(busy)return;if(!hasMask())return toast('Najpierw zaznacz obszar światła pędzlem.');
     busy=true;const button=$('download-all');button.disabled=true;const snapshotSource=new Uint8ClampedArray(original.data),snapshotMask=new Uint8ClampedArray(maskData.data),name=safeName(fileName),w=source.width,h=source.height;
     try{const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;const c=canvas.getContext('2d'),files=[];for(let i=0;i<C.PRESETS.length;i++){const p=C.PRESETS[i];button.textContent=`Przygotowuję ${i+1} / ${C.PRESETS.length}…`;await new Promise(r=>setTimeout(r,20));c.putImageData(new ImageData(C.recolor(snapshotSource,snapshotMask,p),w,h),0,0);const blob=await blobOf(canvas);files.push({name:name+'-'+p.id+'.png',data:new Uint8Array(await blob.arrayBuffer())});}files.push({name:'ustawienia.json',data:new TextEncoder().encode(JSON.stringify({app:'led-studio',version:1,presets:C.PRESETS},null,2))});download(new Blob([C.zip(files)],{type:'application/zip'}),name+'-10-barw.zip');toast('Gotowe: 10 stałych barw i plik z ustawieniami.');}catch(e){toast(e.message||'Nie udało się utworzyć ZIP.');}finally{busy=false;button.disabled=false;button.textContent='Wszystkie stałe barwy · ZIP';}
   };
-  function project(){return{app:'led-studio',version:1,type:'project',fileName,isDemo,width:source.width,height:source.height,source:source.toDataURL('image/png'),mask:mask.toDataURL('image/png'),settings:{...settings},selected,presets:custom.map(p=>({...p}))};}
+  function project(){return{app:'led-studio',version:1,type:'project',engineRevision:2,selectionMode,detectionSensitivity,fileName,isDemo,width:source.width,height:source.height,source:source.toDataURL('image/png'),mask:mask.toDataURL('image/png'),settings:{...settings},selected,presets:custom.map(p=>({...p}))};}
   $('save-project').onclick=()=>{jsonDownload(project(),safeName(fileName)+'.led-project.json');toast('Zapisano projekt ze zdjęciem i zaznaczeniem.');};
   $('open-project').onclick=()=>$('project-file').click();
   async function restoreProject(value){
@@ -266,7 +352,7 @@
     const nextSettings=C.normalizeSettings(value.settings),nextPresets=C.normalizePalette(value.presets||[]);
     const [image,maskImage]=await Promise.all([loadImage(value.source),loadImage(value.mask)]);
     if(image.width!==value.width||image.height!==value.height||maskImage.width!==value.width||maskImage.height!==value.height)throw new Error('Wymiary zdjęcia i zaznaczenia nie pasują do projektu.');
-    setDimensions(value.width,value.height);sx.drawImage(image,0,0);mx.drawImage(maskImage,0,0);readPixels();settings=nextSettings;custom=nextPresets;selected=C.PRESETS.find(p=>p.id===value.selected)?.id||custom.find(p=>p.hex===settings.hex&&p.strength===settings.strength&&p.brightness===settings.brightness)?.id||'';fileName=String(value.fileName||'zdjecie-led').slice(0,200);isDemo=Boolean(value.isDemo);revision++;updateLabels();buildCustom();updateControls();persistPalette();setMode('result');
+    setDimensions(value.width,value.height);sx.drawImage(image,0,0);mx.drawImage(maskImage,0,0);readPixels();selectionMode=['auto','all','manual'].includes(value.selectionMode)?value.selectionMode:(hasMask()?'manual':'auto');detectionSensitivity=C.clamp(Number(value.detectionSensitivity)||55,0,100);if(!hasMask())autoDetect();else selectionUI();settings=nextSettings;custom=nextPresets;selected=C.PRESETS.find(p=>p.id===value.selected)?.id||custom.find(p=>p.hex===settings.hex&&p.strength===settings.strength&&p.brightness===settings.brightness)?.id||'';fileName=String(value.fileName||'zdjecie-led').slice(0,200);isDemo=Boolean(value.isDemo);revision++;updateLabels();buildCustom();updateControls();persistPalette();setMode('result');
   }
   $('project-file').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>120*1024*1024)throw new Error('Plik projektu jest za duży.');const value=JSON.parse(await file.text());await restoreProject(value);scheduleSave();toast('Projekt odtworzony wraz z zaznaczeniem i barwami.');}catch(e){toast(e.message||'Nieprawidłowy plik projektu.');}finally{e.target.value='';}};
   function requestIDB(request){return new Promise((resolve,reject)=>{request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);});}
